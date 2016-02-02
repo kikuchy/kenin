@@ -1,1 +1,1 @@
-include ':app', ':kenin'
+include ':app', ':kenin-android', ':kenin-java'
