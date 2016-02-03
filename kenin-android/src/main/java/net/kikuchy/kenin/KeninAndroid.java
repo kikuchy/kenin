@@ -1,73 +1,81 @@
 package net.kikuchy.kenin;
 
-import java.util.HashSet;
-import java.util.Set;
+import android.content.Context;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+
+import java.util.List;
 
 /**
  * Created by hiroshi.kikuchi on 2016/02/01.
  */
-public class KeninAndroid<T> {
-    protected Condition validationCondition;
-    protected Set<ResultReceiver> resultReceivers;
-    protected ValueChangedEventEmitter<T> eventEmitter;
+public class KeninAndroid<T> extends Kenin<T> {
+    protected Context context;
 
-    protected KeninAndroid(Builder builder) {
-        validationCondition = builder.condition;
-        resultReceivers = builder.resultReceivers;
-        eventEmitter = builder.eventEmitter;
-        eventEmitter.setEventListener(this);
+    protected KeninAndroid(Builder<T> builder) {
+        super(builder);
+        this.context = builder.context;
     }
 
-    public void onValueChanged(T value) {
+    public static Kenin.Builder<CharSequence> builder(final EditText editText) {
+        return new Builder<>(new ValueChangedEventRelay<CharSequence>() {
+            @Override
+            public void relay(final ValueChangedEventEmitter<CharSequence> emitter) {
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    }
+                    }
 
-    public static Builder builder() {
-        Builder builder = new Builder();
-        return builder;
-    }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        emitter.emit(charSequence);
+                    }
 
-    public static class Builder {
-        private Condition condition;
-        private HashSet<ResultReceiver> resultReceivers = new HashSet<>();
-        private ValueChangedEventEmitter<?> eventEmitter;
+                    @Override
+                    public void afterTextChanged(Editable editable) {
 
-        public Builder condition(Condition condition) {
-            this.condition = condition;
-            return this;
-        }
-
-        public Builder addResultReceiver(ResultReceiver resultReceiver) {
-            this.resultReceivers.add(resultReceiver);
-            return this;
-        }
-
-        public KeninAndroid build() {
-            return new KeninAndroid(this);
-        }
-
-        public Builder setEventEmitter(ValueChangedEventEmitter eventEmitter) {
-            this.eventEmitter = eventEmitter;
-            return this;
-        }
-    }
-
-    public interface ResultReceiver {
-        void validationSucceeded();
-        void validationFailed();
-    }
-
-    protected static class ValueChangedEventEmitter<T> {
-        private KeninAndroid<T> listener;
-
-        public void emit(T value) {
-            if (listener != null) {
-                listener.onValueChanged(value);
+                    }
+                });
             }
+        }, editText.getContext());
+    }
+
+    public static Kenin.Builder<CharSequence> builder(final TextInputLayout textInputLayout) {
+        return builder(textInputLayout.getEditText())
+                .addResultReceiver(new ResultReceiver() {
+                    @Override
+                    public void validationSucceeded() {
+                        textInputLayout.setError(null);
+                    }
+
+                    @Override
+                    public void validationFailed(List<String> errorMessages) {
+                        StringBuilder builder = new StringBuilder();
+                        for (String err : errorMessages) {
+                            if (builder.length() != 0) {
+                                builder.append('\n');
+                            }
+                            builder.append(err);
+                        }
+                        textInputLayout.setError(builder.toString());
+                    }
+                });
+    }
+
+    public static class Builder<T> extends Kenin.Builder<T> {
+        private Context context;
+
+        protected Builder(ValueChangedEventRelay<T> relay, Context context) {
+            super(relay);
+            this.context = context;
         }
 
-        public void setEventListener(KeninAndroid<T> keninAndroid) {
-            listener = keninAndroid;
+        public Builder<T> setContext(Context context) {
+            this.context = context;
+            return this;
         }
     }
 }
