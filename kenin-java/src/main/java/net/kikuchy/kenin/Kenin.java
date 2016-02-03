@@ -13,7 +13,7 @@ public class Kenin<T> {
     protected Condition<T> condition;
     protected Set<ResultReceiver> resultReceivers;
 
-    protected Kenin(Builder builder) {
+    protected Kenin(Builder<T> builder) {
         this.condition = builder.condition;
         this.resultReceivers = builder.resultReceivers;
         builder.relay.relay(emitter);
@@ -30,7 +30,7 @@ public class Kenin<T> {
         }
     }
 
-    public static <T> Builder builder(ValueChangedEventRelay<T> relay) {
+    public static <T> Builder<T> builder(ValueChangedEventRelay<T> relay) {
         Builder<T> builder = new Builder<>();
         builder.relay = relay;
         return builder;
@@ -43,17 +43,17 @@ public class Kenin<T> {
 
         protected Builder(){}
 
-        public Builder setCondition(Condition<T> condition) {
+        public Builder<T> setCondition(Condition<T> condition) {
             this.condition = condition;
             return this;
         }
 
-        public Builder addResultReceiver(ResultReceiver resultReceiver) {
+        public Builder<T> addResultReceiver(ResultReceiver resultReceiver) {
             this.resultReceivers.add(resultReceiver);
             return this;
         }
-        public Kenin build() {
-            return new Kenin(this);
+        public Kenin<T> build() {
+            return new Kenin<>(this);
         }
     }
 }
