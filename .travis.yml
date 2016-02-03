@@ -5,8 +5,11 @@ jdk:
 
 android:
     components:
+        - tools
         - android-23
         - build-tools-23.0.2
+        - extra-google-m2repository
+        - extra-android-m2repository
 
 sudo: false
 
