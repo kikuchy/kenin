@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
+import net.kikuchy.kenin.Conditions;
 import net.kikuchy.kenin.KeninAndroid;
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
@@ -22,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
         KeninAndroid.
                 builder(mUserId).
-                setCondition(new RequireCondition()).
+                setCondition(Conditions.requireField()).
                 build();
         KeninAndroid.builder(mPassword).
-                setCondition(new SameCondition("password")).
+                setCondition(Conditions.same("password")).
                 build();
     }
 }
