@@ -45,7 +45,7 @@ public class KeninAndroid<T> extends Kenin<T> {
 
     public static Kenin.Builder<CharSequence> builder(final TextInputLayout textInputLayout) {
         return builder(textInputLayout.getEditText())
-                .addResultReceiver(new ResultReceiver() {
+                .addResultReceiver(new CachedResultReceiver(new ResultReceiver() {
                     @Override
                     public void validationSucceeded() {
                         textInputLayout.setError(null);
@@ -62,7 +62,7 @@ public class KeninAndroid<T> extends Kenin<T> {
                         }
                         textInputLayout.setError(builder.toString());
                     }
-                });
+                }));
     }
 
     public static class Builder<T> extends Kenin.Builder<T> {
