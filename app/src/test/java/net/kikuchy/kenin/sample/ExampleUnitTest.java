@@ -1,4 +1,4 @@
-package net.kikuchy.kenin;
+package net.kikuchy.kenin.sample;
 
 import org.junit.Test;
 
