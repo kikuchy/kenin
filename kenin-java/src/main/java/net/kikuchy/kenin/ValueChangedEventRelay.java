@@ -4,5 +4,5 @@ package net.kikuchy.kenin;
  * Created by kikuchy on 16/02/03.
  */
 public interface ValueChangedEventRelay<T> {
-    void relay(ValueChangedEventEmitter<T> emitter);
+    void relay(final ValueChangedEventEmitter<T> emitter);
 }
