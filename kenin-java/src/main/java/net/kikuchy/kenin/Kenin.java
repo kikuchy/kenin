@@ -19,9 +19,9 @@ public class Kenin<T> {
         builder.relay.relay(emitter);
     }
 
-    public void onValueChanged(T value){
+    public void onValueChanged(T value) {
         ValidationResult result = condition.validate(value);
-        for (ResultReceiver res: resultReceivers) {
+        for (ResultReceiver res : resultReceivers) {
             if (result.isValid()) {
                 res.validationSucceeded();
             } else {
@@ -31,9 +31,7 @@ public class Kenin<T> {
     }
 
     public static <T> Builder<T> builder(ValueChangedEventRelay<T> relay) {
-        Builder<T> builder = new Builder<>();
-        builder.relay = relay;
-        return builder;
+        return new Builder<>(relay);
     }
 
     public static class Builder<T> {
@@ -41,7 +39,9 @@ public class Kenin<T> {
         private Condition<T> condition;
         private HashSet<ResultReceiver> resultReceivers = new HashSet<>();
 
-        protected Builder(){}
+        protected Builder(ValueChangedEventRelay<T> relay) {
+            this.relay = relay;
+        }
 
         public Builder<T> setCondition(Condition<T> condition) {
             this.condition = condition;
@@ -52,6 +52,7 @@ public class Kenin<T> {
             this.resultReceivers.add(resultReceiver);
             return this;
         }
+
         public Kenin<T> build() {
             return new Kenin<>(this);
         }
