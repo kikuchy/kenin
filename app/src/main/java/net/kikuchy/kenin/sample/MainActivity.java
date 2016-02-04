@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 setCondition(Conditions.requireField("require!!!! must put some value!!")).
                 build();
         KeninAndroid.builder(mPassword).
-                setCondition(Conditions.same("password")).
+                setCondition(Conditions.same("password", "Just 'password' can be accepted!")).
                 build();
     }
 }
