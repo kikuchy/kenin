@@ -18,7 +18,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!" />
+            android:text="Hello World!"
+            android:hint="It isn't accept empty"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -30,6 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:hint="password"/>
+            android:hint="Just accepts string 'password'"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
