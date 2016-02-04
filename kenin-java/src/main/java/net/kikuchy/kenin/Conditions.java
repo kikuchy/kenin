@@ -18,4 +18,9 @@ public final class Conditions {
     public static Condition<CharSequence> same(CharSequence expected) {
         return new SameCondition(expected);
     }
+
+    public static Condition<CharSequence> same(CharSequence expected, String errorMessage) {
+        return new SameCondition(expected, errorMessage
+        );
+    }
 }
