@@ -1,7 +1,11 @@
-# Kenin
+# Kenin ![build status](https://travis-ci.org/kikuchy/kenin.svg?branch=master)
 
 Realtime validation framework for Java and Android.
 
+**Note:** This library is before major release. Breaking changes will happen.
+
+
+# Usage
 
 ## Simple Usage
 
@@ -12,9 +16,34 @@ TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
 
 KeninAndroid.
     builder(mUserId).
-    setCondition(new RequireCondition()).
+    setCondition(Conditions.requireField()).
     build();
 ```
+
+
+## `Condition`
+
+Value is checked by the class implements `Condition` interface.
+You can make original `Condition` for your demand.
+
+```java
+KeninAndroid.
+    builder(mUserId).
+    setCondition(new Condition<CharSequence>() {
+        @Override
+        public ValidationResult validate(CharSequence value) {
+            boolean isValid = somethigSpecialValidating(value);
+            ErrorMessageCollection errors = new ErrorMessageCollection();
+            errors.add
+            return new ValidationResult(isValid, new ErrorMessage);
+        }
+    }).
+    build();
+```
+
+Results of validation is represented `ValidationResult` class. It contains that value is valid or not and validation error messages.
+
+`ErrorMessage` represents single validation error message. For future, it will wrap not only String message but also Android Resource IDs or Enums.
 
 
 # Licence
