@@ -4,11 +4,15 @@ import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
 
 /**
- * Created by kikuchy on 16/02/04.
+ * Utilities for using conditions.
  */
 public final class Conditions {
     public static Condition<CharSequence> requireField() {
         return new RequireCondition();
+    }
+
+    public static Condition<CharSequence> requireField(String errorMessage) {
+        return new RequireCondition(errorMessage);
     }
 
     public static Condition<CharSequence> same(CharSequence expected) {
