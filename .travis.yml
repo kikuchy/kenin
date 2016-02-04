@@ -13,7 +13,7 @@ android:
 
 sudo: false
 
-script: ./gradlew build --stacktrace
+script: ./gradlew test --stacktrace
 
 notifications:
     email: false
