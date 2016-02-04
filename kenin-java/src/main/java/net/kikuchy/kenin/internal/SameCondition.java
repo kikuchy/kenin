@@ -6,13 +6,26 @@ import net.kikuchy.kenin.ErrorMessageCollection;
 import net.kikuchy.kenin.ValidationResult;
 
 /**
- * Created by hiroshi.kikuchi on 2016/02/03.
+ * This condition requires same value with the given value.
  */
 public class SameCondition implements Condition<CharSequence> {
-    private CharSequence expected;
+    private final static String DEFAULT_MESSAGE_FORMAT = "Value must be same with \"%s\"";
+
+    private final CharSequence expected;
+    private final ErrorMessage message;
 
     public SameCondition(CharSequence expected) {
+        this(expected, String.format(DEFAULT_MESSAGE_FORMAT, expected));
+    }
+
+    public SameCondition(CharSequence expected, final String errorMessage) {
         this.expected = expected;
+        this.message = new ErrorMessage() {
+            @Override
+            public String toString() {
+                return errorMessage;
+            }
+        };
     }
 
     @Override
@@ -20,12 +33,7 @@ public class SameCondition implements Condition<CharSequence> {
         boolean isValid = value.toString().equals(expected.toString());
         ErrorMessageCollection errors = new ErrorMessageCollection();
         if (!isValid) {
-            errors.add(new ErrorMessage() {
-                @Override
-                public String toString() {
-                    return String.format("Value must be same with %s", expected);
-                }
-            });
+            errors.add(message);
         }
         return new ValidationResult(isValid, errors);
     }
