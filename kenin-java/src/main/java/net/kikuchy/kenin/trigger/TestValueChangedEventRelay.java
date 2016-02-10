@@ -1,4 +1,4 @@
-package net.kikuchy.kenin;
+package net.kikuchy.kenin.trigger;
 
 /**
  * A variety of {@link ValueChangedEventRelay} that is useful for testing purpose.

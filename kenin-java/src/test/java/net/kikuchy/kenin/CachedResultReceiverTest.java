@@ -1,5 +1,7 @@
 package net.kikuchy.kenin;
 
+import net.kikuchy.kenin.result.CachedResultReceiver;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class CachedResultReceiverTest {
     @Test
     public void testValidationSucceeded() throws Exception {
         CounterReceiver counter = new CounterReceiver();
-        ResultReceiver cached = new CachedResultReceiver(counter);
+        net.kikuchy.kenin.result.ResultReceiver cached = new net.kikuchy.kenin.result.CachedResultReceiver(counter);
         // call fourth
         cached.validationSucceeded();
         cached.validationSucceeded();
@@ -36,7 +38,7 @@ public class CachedResultReceiverTest {
     @Test
     public void testValidationFailed() throws Exception {
         CounterReceiver counter = new CounterReceiver();
-        ResultReceiver cached = new CachedResultReceiver(counter);
+        net.kikuchy.kenin.result.ResultReceiver cached = new CachedResultReceiver(counter);
 
         // call twice
         cached.validationFailed(Arrays.asList("hoge", "fuga"));
@@ -52,7 +54,7 @@ public class CachedResultReceiverTest {
         assertThat(counter.countFail, is(2));
     }
 
-    class CounterReceiver implements ResultReceiver {
+    class CounterReceiver implements net.kikuchy.kenin.result.ResultReceiver {
         public int countSucceed = 0;
         public int countFail = 0;
 

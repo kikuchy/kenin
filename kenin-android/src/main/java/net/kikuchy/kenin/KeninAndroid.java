@@ -6,6 +6,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import net.kikuchy.kenin.result.CachedResultReceiver;
+import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
+
 import java.util.List;
 
 /**
@@ -20,9 +23,9 @@ public class KeninAndroid<T> extends Kenin<T> {
     }
 
     public static Kenin.Builder<CharSequence> builder(final EditText editText) {
-        return new Builder<>(new ValueChangedEventRelay<CharSequence>() {
+        return new Builder<>(new net.kikuchy.kenin.trigger.ValueChangedEventRelay<CharSequence>() {
             @Override
-            public void relay(final ValueChangedEventEmitter<CharSequence> emitter) {
+            public void relay(final net.kikuchy.kenin.trigger.ValueChangedEventEmitter<CharSequence> emitter) {
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -45,7 +48,7 @@ public class KeninAndroid<T> extends Kenin<T> {
 
     public static Kenin.Builder<CharSequence> builder(final TextInputLayout textInputLayout) {
         return builder(textInputLayout.getEditText())
-                .addResultReceiver(new CachedResultReceiver(new ResultReceiver() {
+                .addResultReceiver(new CachedResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
                     @Override
                     public void validationSucceeded() {
                         textInputLayout.setError(null);

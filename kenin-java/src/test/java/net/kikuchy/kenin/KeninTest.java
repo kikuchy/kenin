@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
  * Created by hiroshi.kikuchi on 2016/02/03.
  */
 public class KeninTest {
-    TestValueChangedEventRelay<Boolean> emitter;
-    TestCondition<Boolean> condition;
+    net.kikuchy.kenin.trigger.TestValueChangedEventRelay<Boolean> emitter;
+    net.kikuchy.kenin.condition.TestCondition<Boolean> condition;
 
     @Before
     public void setUp() throws Exception {
-        emitter = new TestValueChangedEventRelay<>();
-        condition = new TestCondition<>();
+        emitter = new net.kikuchy.kenin.trigger.TestValueChangedEventRelay<>();
+        condition = new net.kikuchy.kenin.condition.TestCondition<>();
     }
 
     @org.junit.Test
@@ -24,7 +24,7 @@ public class KeninTest {
         Kenin<Boolean> one = Kenin
                 .builder(emitter)
                 .setCondition(condition)
-                .addResultReceiver(new ResultReceiver() {
+                .addResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
                     @Override
                     public void validationSucceeded() {
                         assertTrue(true);
@@ -35,7 +35,7 @@ public class KeninTest {
                         assertTrue(false);
                     }
                 })
-                .addResultReceiver(new ResultReceiver() {
+                .addResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
                     @Override
                     public void validationSucceeded() {
                         assertTrue(true);
@@ -46,7 +46,7 @@ public class KeninTest {
                         assertTrue(false);
                     }
                 })
-                .addResultReceiver(new ResultReceiver() {
+                .addResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
                     @Override
                     public void validationSucceeded() {
                         assertTrue(true);
@@ -63,7 +63,7 @@ public class KeninTest {
 
     @org.junit.Test
     public void onValueChangedCalledViaRelay() throws Exception {
-        Kenin<Boolean> one = Kenin.builder(emitter).setCondition(condition).addResultReceiver(new ResultReceiver() {
+        Kenin<Boolean> one = Kenin.builder(emitter).setCondition(condition).addResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
             @Override
             public void validationSucceeded() {
                 assertTrue(true);
@@ -77,7 +77,7 @@ public class KeninTest {
         condition.setValid(true);
         emitter.emmit(true);
 
-        Kenin<Boolean> two = Kenin.builder(emitter).setCondition(condition).addResultReceiver(new ResultReceiver() {
+        Kenin<Boolean> two = Kenin.builder(emitter).setCondition(condition).addResultReceiver(new net.kikuchy.kenin.result.ResultReceiver() {
             @Override
             public void validationSucceeded() {
                 assertTrue(false);

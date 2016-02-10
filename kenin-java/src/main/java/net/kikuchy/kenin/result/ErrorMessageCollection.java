@@ -1,4 +1,4 @@
-package net.kikuchy.kenin;
+package net.kikuchy.kenin.result;
 
 import java.util.ArrayList;
 import java.util.List;

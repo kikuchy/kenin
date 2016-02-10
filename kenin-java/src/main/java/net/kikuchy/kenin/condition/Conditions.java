@@ -1,4 +1,4 @@
-package net.kikuchy.kenin;
+package net.kikuchy.kenin.condition;
 
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;

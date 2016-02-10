@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
-import net.kikuchy.kenin.Conditions;
+import net.kikuchy.kenin.condition.Conditions;
 import net.kikuchy.kenin.KeninAndroid;
-import net.kikuchy.kenin.internal.RequireCondition;
-import net.kikuchy.kenin.internal.SameCondition;
 
 public class MainActivity extends AppCompatActivity {
     private TextInputLayout mUserId;

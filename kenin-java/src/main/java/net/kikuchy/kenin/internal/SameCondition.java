@@ -1,9 +1,9 @@
 package net.kikuchy.kenin.internal;
 
-import net.kikuchy.kenin.Condition;
-import net.kikuchy.kenin.ErrorMessage;
-import net.kikuchy.kenin.ErrorMessageCollection;
-import net.kikuchy.kenin.ValidationResult;
+import net.kikuchy.kenin.condition.Condition;
+import net.kikuchy.kenin.result.ErrorMessage;
+import net.kikuchy.kenin.result.ErrorMessageCollection;
+import net.kikuchy.kenin.result.ValidationResult;
 
 /**
  * This condition requires same value with the given value.
