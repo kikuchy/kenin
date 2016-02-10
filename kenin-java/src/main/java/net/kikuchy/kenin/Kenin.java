@@ -28,7 +28,7 @@ public class Kenin<T> {
             if (result.isValid()) {
                 res.validationSucceeded();
             } else {
-                res.validationFailed(result.getMessages());
+                res.validationFailed(result.getReasons());
             }
         }
     }

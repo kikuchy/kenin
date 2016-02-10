@@ -5,20 +5,20 @@ import java.util.List;
 /**
  * Created by kikuchy on 16/02/02.
  */
-public class ValidationResult {
+public class ValidationResult<E> {
     private boolean isValid = false;
-    private ErrorMessageCollection errorMessages;
+    private List<ErrorReason<E>> errorReasons;
 
-    public ValidationResult(boolean isValid, ErrorMessageCollection errorMessages) {
+    public ValidationResult(boolean isValid, List<ErrorReason<E>> errorReasons) {
         this.isValid = isValid;
-        this.errorMessages = errorMessages;
+        this.errorReasons = errorReasons;
     }
 
     public boolean isValid() {
         return isValid;
     }
 
-    public List<String> getMessages() {
-        return errorMessages.getMessages();
+    public List<ErrorReason<E>> getReasons() {
+        return errorReasons;
     }
 }

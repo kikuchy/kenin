@@ -1,6 +1,6 @@
 package net.kikuchy.kenin.condition;
 
-import net.kikuchy.kenin.result.ErrorMessage;
+import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 /**
@@ -22,7 +22,7 @@ public final class TestCondition<T> implements net.kikuchy.kenin.condition.Condi
     @Override
     public net.kikuchy.kenin.result.ValidationResult validate(T value) {
         net.kikuchy.kenin.result.ErrorMessageCollection errors = new net.kikuchy.kenin.result.ErrorMessageCollection();
-        errors.add(new ErrorMessage() {
+        errors.add(new ErrorReason() {
             @Override
             public String toString() {
                 return "test";

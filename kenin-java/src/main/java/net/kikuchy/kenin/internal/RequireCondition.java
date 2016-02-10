@@ -1,7 +1,7 @@
 package net.kikuchy.kenin.internal;
 
 import net.kikuchy.kenin.condition.Condition;
-import net.kikuchy.kenin.result.ErrorMessage;
+import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ErrorMessageCollection;
 import net.kikuchy.kenin.result.ValidationResult;
 
@@ -11,10 +11,10 @@ import net.kikuchy.kenin.result.ValidationResult;
 public class RequireCondition implements Condition<CharSequence> {
     private final static String DEFAULT_MESSAGE = "This field is required.";
 
-    private final ErrorMessage message;
+    private final ErrorReason message;
 
     public RequireCondition(final String errorMessage) {
-        this.message = new ErrorMessage() {
+        this.message = new ErrorReason() {
             @Override
             public String toString() {
                 return errorMessage;

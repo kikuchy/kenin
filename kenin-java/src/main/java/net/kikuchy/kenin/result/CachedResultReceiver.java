@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * Notify validation result if new validation result changes from the last result.
  */
-public class CachedResultReceiver implements ResultReceiver {
+public class CachedResultReceiver<E> implements ResultReceiver<E> {
     private boolean isLastValidationSucceeded = false;
-    private List<String> lastErrorMessages;
+    private List<ErrorReason<E>> lastErrorMessages;
     private ResultReceiver trueReceiver;
 
     public CachedResultReceiver(ResultReceiver receiver) {
@@ -23,12 +23,12 @@ public class CachedResultReceiver implements ResultReceiver {
     }
 
     @Override
-    public void validationFailed(List<String> errorMessages) {
+    public void validationFailed(List<ErrorReason<E>> errorReasons) {
         if (isLastValidationSucceeded != false ||
-                !errorMessages.equals(lastErrorMessages)) {
+                !errorReasons.equals(lastErrorMessages)) {
             isLastValidationSucceeded = false;
-            lastErrorMessages = errorMessages;
-            trueReceiver.validationFailed(errorMessages);
+            lastErrorMessages = errorReasons;
+            trueReceiver.validationFailed(errorReasons);
         }
     }
 }
