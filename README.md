@@ -46,6 +46,23 @@ Results of validation is represented `ValidationResult` class. It contains that 
 `ErrorMessage` represents single validation error message. For future, it will wrap not only String message but also Android Resource IDs or Enums.
 
 
+# Concept
+
+## Kenin-Java
+
+**Portable** ... Kenin-Java's goal is the validation library used in anywhere (Swing, AWT, JavaFX, J2ObjC... of cource Android!).
+
+**Pure Java** ... For realizing portability, Kenin-Java have to made with only java code. (We can't run it on JVM if it depends on Android SDK as you know ;) )
+
+**Simple and Minimum** ... Kenin-Java provides only minimum features for validation. And keep simple architecture.
+
+
+## Kenin-Android
+
+**Battery Included** ... Kenin-Android provides useful classes and methods for validating Android widgets and easy to start using.
+
+
+
 # Licence
 
     Copyright (C) 2016 kikuchy
