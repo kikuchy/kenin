@@ -8,9 +8,9 @@ import java.util.List;
 public class CachedResultReceiver<E> implements ResultReceiver<E> {
     private boolean isLastValidationSucceeded = false;
     private List<ErrorReason<E>> lastErrorMessages;
-    private ResultReceiver trueReceiver;
+    private ResultReceiver<E> trueReceiver;
 
-    public CachedResultReceiver(ResultReceiver receiver) {
+    public CachedResultReceiver(ResultReceiver<E> receiver) {
         this.trueReceiver = receiver;
     }
 
