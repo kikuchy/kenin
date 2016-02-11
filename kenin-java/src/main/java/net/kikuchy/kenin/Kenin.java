@@ -1,30 +1,33 @@
 package net.kikuchy.kenin;
 
+import net.kikuchy.kenin.condition.Condition;
+import net.kikuchy.kenin.result.ResultReceiver;
 import net.kikuchy.kenin.result.ValidationResult;
+import net.kikuchy.kenin.trigger.ValueChangedEventEmitter;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Kenin<T> {
-    protected net.kikuchy.kenin.trigger.ValueChangedEventEmitter<T> emitter = new net.kikuchy.kenin.trigger.ValueChangedEventEmitter<T>() {
+public class Kenin<V, E> {
+    protected ValueChangedEventEmitter<V> emitter = new ValueChangedEventEmitter<V>() {
         @Override
-        public void emit(T value) {
+        public void emit(V value) {
             Kenin.this.onValueChanged(value);
         }
     };
-    protected net.kikuchy.kenin.condition.Condition<T> condition;
-    protected Set<net.kikuchy.kenin.result.ResultReceiver> resultReceivers;
+    protected Condition<V, E> condition;
+    protected Set<ResultReceiver<E>> resultReceivers;
 
-    protected Kenin(Builder<T> builder) {
+    protected Kenin(Builder<V, E> builder) {
         this.condition = builder.condition;
         this.resultReceivers = builder.resultReceivers;
         builder.relay.relay(emitter);
     }
 
-    public void onValueChanged(T value) {
-        ValidationResult result = condition.validate(value);
-        for (net.kikuchy.kenin.result.ResultReceiver res : resultReceivers) {
+    public void onValueChanged(V value) {
+        ValidationResult<E> result = condition.validate(value);
+        for (ResultReceiver<E> res : resultReceivers) {
             if (result.isValid()) {
                 res.validationSucceeded();
             } else {
@@ -33,30 +36,30 @@ public class Kenin<T> {
         }
     }
 
-    public static <T> Builder<T> builder(net.kikuchy.kenin.trigger.ValueChangedEventRelay<T> relay) {
+    public static <V, E> Builder<V, E> builder(ValueChangedEventRelay<V> relay) {
         return new Builder<>(relay);
     }
 
-    public static class Builder<T> {
-        private net.kikuchy.kenin.trigger.ValueChangedEventRelay<T> relay;
-        private net.kikuchy.kenin.condition.Condition<T> condition;
-        private HashSet<net.kikuchy.kenin.result.ResultReceiver> resultReceivers = new HashSet<>();
+    public static class Builder<V, E> {
+        private ValueChangedEventRelay<V> relay;
+        private Condition<V, E> condition;
+        private HashSet<ResultReceiver<E>> resultReceivers = new HashSet<>();
 
-        protected Builder(ValueChangedEventRelay<T> relay) {
+        protected Builder(ValueChangedEventRelay<V> relay) {
             this.relay = relay;
         }
 
-        public Builder<T> setCondition(net.kikuchy.kenin.condition.Condition<T> condition) {
+        public Builder<V, E> setCondition(Condition<V, E> condition) {
             this.condition = condition;
             return this;
         }
 
-        public Builder<T> addResultReceiver(net.kikuchy.kenin.result.ResultReceiver resultReceiver) {
+        public Builder<V, E> addResultReceiver(ResultReceiver<E> resultReceiver) {
             this.resultReceivers.add(resultReceiver);
             return this;
         }
 
-        public Kenin<T> build() {
+        public Kenin<V, E> build() {
             return new Kenin<>(this);
         }
     }
