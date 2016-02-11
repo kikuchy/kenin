@@ -8,6 +8,19 @@ public abstract class ErrorReason<E> {
 
     @Override
     public boolean equals(Object obj) {
-        return getReason().equals(obj);
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof ErrorReason) {
+            ErrorReason reason = (ErrorReason) obj;
+            return reason.getReason().equals(getReason());
+        }
+
+        return false;
     }
 }

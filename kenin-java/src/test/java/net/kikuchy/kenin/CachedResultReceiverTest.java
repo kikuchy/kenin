@@ -1,6 +1,8 @@
 package net.kikuchy.kenin;
 
 import net.kikuchy.kenin.result.CachedResultReceiver;
+import net.kikuchy.kenin.result.ErrorReason;
+import net.kikuchy.kenin.result.ResultReceiver;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +25,8 @@ public class CachedResultReceiverTest {
 
     @Test
     public void testValidationSucceeded() throws Exception {
-        CounterReceiver counter = new CounterReceiver();
-        net.kikuchy.kenin.result.ResultReceiver cached = new net.kikuchy.kenin.result.CachedResultReceiver(counter);
+        CounterReceiver<String> counter = new CounterReceiver<>();
+        ResultReceiver<String> cached = new CachedResultReceiver<>(counter);
         // call fourth
         cached.validationSucceeded();
         cached.validationSucceeded();
@@ -37,24 +39,54 @@ public class CachedResultReceiverTest {
 
     @Test
     public void testValidationFailed() throws Exception {
-        CounterReceiver counter = new CounterReceiver();
-        net.kikuchy.kenin.result.ResultReceiver cached = new CachedResultReceiver(counter);
+        CounterReceiver<String> counter = new CounterReceiver<>();
+        ResultReceiver<String> cached = new CachedResultReceiver<>(counter);
 
         // call twice
-        cached.validationFailed(Arrays.asList("hoge", "fuga"));
-        cached.validationFailed(Arrays.asList("hoge", "fuga"));
+        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "hoge";
+            }
+        }, new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "fuga";
+            }
+        }));
+        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "hoge";
+            }
+        }, new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "fuga";
+            }
+        }));
 
         //but called "failed" once
         assertThat(counter.countFail, is(1));
 
         // call fail with other messages
-        cached.validationFailed(Arrays.asList("hoge", "moge"));
+        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "hoge";
+            }
+        }, new ErrorReason<String>() {
+            @Override
+            public String getReason() {
+                return "moge";
+            }
+        }));
 
         // and counter is counted up
         assertThat(counter.countFail, is(2));
     }
 
-    class CounterReceiver implements net.kikuchy.kenin.result.ResultReceiver {
+    class CounterReceiver<E> implements ResultReceiver<E> {
         public int countSucceed = 0;
         public int countFail = 0;
 
@@ -64,7 +96,7 @@ public class CachedResultReceiverTest {
         }
 
         @Override
-        public void validationFailed(List<String> errorMessages) {
+        public void validationFailed(List<ErrorReason<E>> errorReasons) {
             countFail++;
         }
     }
