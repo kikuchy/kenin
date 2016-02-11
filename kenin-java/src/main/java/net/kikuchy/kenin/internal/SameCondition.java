@@ -2,39 +2,35 @@ package net.kikuchy.kenin.internal;
 
 import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.ErrorReason;
-import net.kikuchy.kenin.result.ErrorMessageCollection;
 import net.kikuchy.kenin.result.ValidationResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This condition requires same value with the given value.
  */
-public class SameCondition implements Condition<CharSequence> {
-    private final static String DEFAULT_MESSAGE_FORMAT = "Value must be same with \"%s\"";
-
+public class SameCondition<E> implements Condition<CharSequence, E> {
     private final CharSequence expected;
-    private final ErrorReason message;
+    private final ErrorReason<E> message;
 
-    public SameCondition(CharSequence expected) {
-        this(expected, String.format(DEFAULT_MESSAGE_FORMAT, expected));
-    }
-
-    public SameCondition(CharSequence expected, final String errorMessage) {
+    public SameCondition(CharSequence expected, final E errorReason) {
         this.expected = expected;
-        this.message = new ErrorReason() {
+        this.message = new ErrorReason<E>() {
             @Override
-            public String toString() {
-                return errorMessage;
+            public E getReason() {
+                return errorReason;
             }
         };
     }
 
     @Override
-    public ValidationResult validate(CharSequence value) {
+    public ValidationResult<E> validate(CharSequence value) {
         boolean isValid = value.toString().equals(expected.toString());
-        ErrorMessageCollection errors = new ErrorMessageCollection();
+        List<ErrorReason<E>> errors = new ArrayList<>();
         if (!isValid) {
             errors.add(message);
         }
-        return new ValidationResult(isValid, errors);
+        return new ValidationResult<>(isValid, errors);
     }
 }

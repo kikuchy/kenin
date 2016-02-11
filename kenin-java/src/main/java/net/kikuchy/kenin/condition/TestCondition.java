@@ -3,11 +3,14 @@ package net.kikuchy.kenin.condition;
 import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A variety of {@link net.kikuchy.kenin.condition.Condition} that is useful for testing purpose.
  * Validation status (success or fail) can change any timing you like.
  */
-public final class TestCondition<T> implements net.kikuchy.kenin.condition.Condition<T> {
+public final class TestCondition<V> implements Condition<V, String> {
     private boolean isValid = true;
 
     /**
@@ -20,14 +23,14 @@ public final class TestCondition<T> implements net.kikuchy.kenin.condition.Condi
     }
 
     @Override
-    public net.kikuchy.kenin.result.ValidationResult validate(T value) {
-        net.kikuchy.kenin.result.ErrorMessageCollection errors = new net.kikuchy.kenin.result.ErrorMessageCollection();
-        errors.add(new ErrorReason() {
+    public ValidationResult<String> validate(V value) {
+        List<ErrorReason<String>> errors = new ArrayList<>();
+        errors.add(new ErrorReason<String>() {
             @Override
-            public String toString() {
+            public String getReason() {
                 return "test";
             }
         });
-        return new ValidationResult(isValid, errors);
+        return new ValidationResult<>(isValid, errors);
     }
 }

@@ -2,36 +2,32 @@ package net.kikuchy.kenin.internal;
 
 import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.ErrorReason;
-import net.kikuchy.kenin.result.ErrorMessageCollection;
 import net.kikuchy.kenin.result.ValidationResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This condition requires a value.
  */
-public class RequireCondition implements Condition<CharSequence> {
-    private final static String DEFAULT_MESSAGE = "This field is required.";
+public class RequireCondition<E> implements Condition<CharSequence, E> {
+    private final ErrorReason<E> message;
 
-    private final ErrorReason message;
-
-    public RequireCondition(final String errorMessage) {
-        this.message = new ErrorReason() {
+    public RequireCondition(final E errorReason) {
+        this.message = new ErrorReason<E>() {
             @Override
-            public String toString() {
-                return errorMessage;
+            public E getReason() {
+                return errorReason;
             }
         };
     }
 
-    public RequireCondition() {
-        this(DEFAULT_MESSAGE);
-    }
-
     @Override
-    public ValidationResult validate(CharSequence value) {
-        ErrorMessageCollection errors = new ErrorMessageCollection();
+    public ValidationResult<E> validate(CharSequence value) {
+        List<ErrorReason<E>> errors = new ArrayList<>();
         boolean isValid = value.length() != 0;
         if (!isValid)
             errors.add(message);
-        return new ValidationResult(isValid, errors);
+        return new ValidationResult<>(isValid, errors);
     }
 }
