@@ -14,28 +14,48 @@ Realtime validation framework for Java and Android.
 ```java
 TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
 
+// Writing simple,
 KeninAndroid.
     builder(mUserId).
     setCondition(Conditions.requireField()).
+    build();
+
+// or
+
+// Powerful expression.
+KeninAndroid.
+    builder(mUserId).
+    setCondition(
+        and(
+            Conditions.requireField(),
+            or(
+                Conditions.alphabet(),
+                Conditions.numeric())).
     build();
 ```
 
 
 ## `Condition`
 
-Value is checked by the class implements `Condition` interface.
+Value is checked by the class implements `Condition<V, E>` interface.
+Type parameter `V` is type of value will be validated  and `E` is type of error reporting.
 You can make original `Condition` for your demand.
 
 ```java
 KeninAndroid.
     builder(mUserId).
-    setCondition(new Condition<CharSequence>() {
+    setCondition(new Condition<CharSequence, Integer>() {
         @Override
-        public ValidationResult validate(CharSequence value) {
+        public ValidationResult<Integer> validate(CharSequence value) {
             boolean isValid = somethigSpecialValidating(value);
-            ErrorMessageCollection errors = new ErrorMessageCollection();
-            errors.add
-            return new ValidationResult(isValid, new ErrorMessage);
+            List<ErrorReason<Integer>> errors = new ArrayList<>();
+            errors.add(new ErrorReason() {
+                @Override
+                public Integer getReason() {
+                    return R.string.validation_failed;
+                }
+            });
+            return new ValidationResult(isValid, errors);
         }
     }).
     build();
