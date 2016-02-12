@@ -1,5 +1,6 @@
 package net.kikuchy.kenin.condition;
 
+import net.kikuchy.kenin.internal.NumericCondition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
@@ -65,5 +66,13 @@ public final class Conditions {
     public static Condition<CharSequence, String> lengthMax(int length, String errorMessage) {
         return new TextLengthCondition<>(
                 length, TextLengthCondition.Comparison.LESS_THAN_OR_EQUAL, errorMessage);
+    }
+
+    public static Condition<CharSequence, String> numeric() {
+        return new NumericCondition<>("Value must be a number.");
+    }
+
+    public static Condition<CharSequence, String> numeric(String errorMessage) {
+        return new NumericCondition<>(errorMessage);
     }
 }
