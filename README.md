@@ -1,4 +1,4 @@
-# Kenin ![build status](https://travis-ci.org/kikuchy/kenin.svg?branch=master)
+# Kenin [![Build Status](https://travis-ci.org/kikuchy/kenin.svg?branch=master)](https://travis-ci.org/kikuchy/kenin)
 
 Realtime validation framework for Java and Android.
 
