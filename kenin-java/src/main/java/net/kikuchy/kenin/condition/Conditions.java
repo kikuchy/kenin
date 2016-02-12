@@ -1,5 +1,6 @@
 package net.kikuchy.kenin.condition;
 
+import net.kikuchy.kenin.internal.AlphabetCondition;
 import net.kikuchy.kenin.internal.NumericCondition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
@@ -74,5 +75,13 @@ public final class Conditions {
 
     public static Condition<CharSequence, String> numeric(String errorMessage) {
         return new NumericCondition<>(errorMessage);
+    }
+
+    public static Condition<CharSequence, String> alphabet() {
+        return new AlphabetCondition<>("Value must be alphabets.");
+    }
+
+    public static Condition<CharSequence, String> alphabet(String errorMessage) {
+        return new AlphabetCondition<>(errorMessage);
     }
 }
