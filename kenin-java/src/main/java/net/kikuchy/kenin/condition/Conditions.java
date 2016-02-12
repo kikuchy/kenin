@@ -3,6 +3,7 @@ package net.kikuchy.kenin.condition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
+import net.kikuchy.kenin.internal.TextLengthCondition;
 
 /**
  * Utilities for using conditions.
@@ -31,5 +32,38 @@ public final class Conditions {
 
     public static Condition<CharSequence, String> pattern(String pattern, String errorMessage) {
         return new PatternMatchCondition<>(pattern, errorMessage);
+    }
+
+    public static Condition<CharSequence, String> lengthJust(int length) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.EQUAL,
+                String.format("Value must be just %d characters.", length));
+    }
+
+    public static Condition<CharSequence, String> lengthJust(int length, String errorMessage) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.EQUAL, errorMessage);
+    }
+
+    public static Condition<CharSequence, String> lengthMin(int length) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.GREATER_THAN_OR_EQUAL,
+                String.format("Value must be longer than %d characters.", length));
+    }
+
+    public static Condition<CharSequence, String> lengthMin(int length, String errorMessage) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.GREATER_THAN_OR_EQUAL, errorMessage);
+    }
+
+    public static Condition<CharSequence, String> lengthMax(int length) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.LESS_THAN_OR_EQUAL,
+                String.format("Value must be shorter than %d characters.", length));
+    }
+
+    public static Condition<CharSequence, String> lengthMax(int length, String errorMessage) {
+        return new TextLengthCondition<>(
+                length, TextLengthCondition.Comparison.LESS_THAN_OR_EQUAL, errorMessage);
     }
 }
