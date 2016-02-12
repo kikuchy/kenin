@@ -5,6 +5,6 @@ package net.kikuchy.kenin.internal;
  */
 public class AlphaNumericCondition<E> extends PatternMatchCondition<E> {
     public AlphaNumericCondition(E errorReason) {
-        super("^[a-zA-Z0-9]+$", errorReason);
+        super("^[a-zA-Z0-9]*$", errorReason);
     }
 }

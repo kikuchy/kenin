@@ -20,5 +20,7 @@ public class AlphabetConditionTest {
         assertFalse(two.isValid());
         ValidationResult<String> three = condition.validate("WhyJava's0peratorsAre-NotFunction?");
         assertFalse(three.isValid());
+        ValidationResult<String> four = condition.validate("");
+        assertTrue(four.isValid());
     }
 }

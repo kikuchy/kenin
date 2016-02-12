@@ -21,5 +21,7 @@ public class NumericConditionTest {
         // only number character is allowed
         ValidationResult<String> three = condition.validate("123456.000");
         assertFalse(three.isValid());
+        ValidationResult<String> four = condition.validate("");
+        assertTrue(four.isValid());
     }
 }

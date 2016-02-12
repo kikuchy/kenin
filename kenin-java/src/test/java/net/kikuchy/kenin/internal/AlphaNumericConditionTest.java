@@ -22,5 +22,7 @@ public class AlphaNumericConditionTest {
         assertTrue(three.isValid());
         ValidationResult<String> four = condition.validate("Sleeping? It's heaven!!");
         assertFalse(four.isValid());
+        ValidationResult<String> five = condition.validate("");
+        assertTrue(five.isValid());
     }
 }

@@ -5,6 +5,6 @@ package net.kikuchy.kenin.internal;
  */
 public class NumericCondition<E> extends PatternMatchCondition<E> {
     public NumericCondition(E errorReason) {
-        super("^\\d+$", errorReason);
+        super("^\\d*$", errorReason);
     }
 }
