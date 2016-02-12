@@ -10,14 +10,14 @@ import java.util.List;
 /**
  * This condition requires same value with the given value.
  */
-public class SameCondition<E> implements Condition<CharSequence, E> {
-    private final LazyGetter<CharSequence> expected;
+public abstract class SameCondition<V, E> implements Condition<V, E> {
+    private final LazyGetter<V> expected;
     private final ErrorReason<E> message;
 
-    public SameCondition(final CharSequence expected, final E errorReason) {
-        this.expected = new LazyGetter<CharSequence>() {
+    public SameCondition(final V expected, final E errorReason) {
+        this.expected = new LazyGetter<V>() {
             @Override
-            public CharSequence get() {
+            public V get() {
                 return expected;
             }
         };
@@ -29,7 +29,7 @@ public class SameCondition<E> implements Condition<CharSequence, E> {
         };
     }
 
-    public SameCondition(LazyGetter<CharSequence> expected, final E errorReason) {
+    public SameCondition(LazyGetter<V> expected, final E errorReason) {
         this.expected = expected;
         this.message = new ErrorReason<E>() {
             @Override
@@ -40,14 +40,16 @@ public class SameCondition<E> implements Condition<CharSequence, E> {
     }
 
     @Override
-    public ValidationResult<E> validate(CharSequence value) {
-        boolean isValid = value.toString().equals(expected.get().toString());
+    public ValidationResult<E> validate(V value) {
+        boolean isValid = equalsBetween(value, expected.get());
         List<ErrorReason<E>> errors = new ArrayList<>();
         if (!isValid) {
             errors.add(message);
         }
         return new ValidationResult<>(isValid, errors);
     }
+
+    protected abstract boolean equalsBetween(V v1, V v2);
 
     public interface LazyGetter<T> {
         T get();

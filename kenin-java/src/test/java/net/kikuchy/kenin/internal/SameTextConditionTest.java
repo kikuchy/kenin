@@ -10,11 +10,11 @@ import static org.junit.Assert.*;
 /**
  * Created by hiroshi.kikuchi on 2016/02/12.
  */
-public class SameConditionTest {
+public class SameTextConditionTest {
 
     @Test
     public void testValidate() throws Exception {
-        Condition<CharSequence, String> condition = new SameCondition<>("foobar", "be same");
+        Condition<CharSequence, String> condition = new SameTextCondition<>("foobar", "be same");
         ValidationResult<String> one = condition.validate("hogefuga");
         assertFalse(one.isValid());
         ValidationResult<String> two = condition.validate("foobar");
@@ -24,7 +24,7 @@ public class SameConditionTest {
     @Test
     public void testValidateLazy() throws Exception {
         TestGetter<CharSequence> lazy = new TestGetter<>();
-        Condition<CharSequence, String> condition = new SameCondition<>(lazy, "be same");
+        Condition<CharSequence, String> condition = new SameTextCondition<>(lazy, "be same");
         lazy.setValue("foobar");
         ValidationResult<String> one = condition.validate("hogefuga");
         assertFalse(one.isValid());

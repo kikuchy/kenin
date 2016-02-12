@@ -6,6 +6,7 @@ import net.kikuchy.kenin.internal.NumericCondition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
+import net.kikuchy.kenin.internal.SameTextCondition;
 import net.kikuchy.kenin.internal.TextLengthCondition;
 
 /**
@@ -21,11 +22,29 @@ public final class Conditions {
     }
 
     public static Condition<CharSequence, String> same(CharSequence expected) {
-        return new SameCondition<>(expected, String.format("Value must be same with \"%s\"", expected));
+        return new SameTextCondition<>(expected, String.format("Value must be same with \"%s\"", expected));
     }
 
     public static Condition<CharSequence, String> same(CharSequence expected, String errorMessage) {
-        return new SameCondition<>(expected, errorMessage);
+        return new SameTextCondition<>(expected, errorMessage);
+    }
+
+    public static Condition<Boolean, String> same(boolean expected, String errorMessage) {
+        return new SameCondition<Boolean, String>(expected, errorMessage) {
+            @Override
+            protected boolean equalsBetween(Boolean v1, Boolean v2) {
+                return v1.booleanValue() == v2.booleanValue();
+            }
+        };
+    }
+
+    public static Condition<Integer, String> same(int expected, String errorMessage) {
+        return new SameCondition<Integer, String>(expected, errorMessage) {
+            @Override
+            protected boolean equalsBetween(Integer v1, Integer v2) {
+                return v1.intValue() == v2.intValue();
+            }
+        };
     }
 
     public static Condition<CharSequence, String> pattern(String pattern) {
