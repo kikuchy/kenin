@@ -21,20 +21,25 @@ public final class Conditions {
         return new RequireCondition<>(errorMessage);
     }
 
-    public static Condition<CharSequence, String> same(CharSequence expected) {
+    public static Condition<CharSequence, String> sameText(CharSequence expected) {
         return new SameTextCondition<>(expected, String.format("Value must be same with \"%s\"", expected));
     }
 
-    public static Condition<CharSequence, String> same(CharSequence expected, String errorMessage) {
+    public static Condition<CharSequence, String> sameText(CharSequence expected, String errorMessage) {
         return new SameTextCondition<>(expected, errorMessage);
     }
 
-    public static Condition<CharSequence, String> same(
-            SameCondition.LazyGetter<CharSequence> expected, String errorMessage) {
-        return new SameTextCondition<>(expected, errorMessage);
+    public static <V extends CharSequence> Condition<V, String> sameText(
+            SameCondition.LazyGetter<V> expected, String errorMessage) {
+        return new SameCondition<V, String>(expected, errorMessage) {
+            @Override
+            protected boolean equalsBetween(V v1, V v2) {
+                return v1.toString().equals(v2.toString());
+            }
+        };
     }
 
-    public static Condition<Boolean, String> same(
+    public static Condition<Boolean, String> sameBool(
             SameCondition.LazyGetter<Boolean> expected, String errorMessage) {
         return new SameCondition<Boolean, String>(expected, errorMessage) {
             @Override
@@ -44,7 +49,7 @@ public final class Conditions {
         };
     }
 
-    public static Condition<Integer, String> same(
+    public static Condition<Integer, String> sameInt(
             SameCondition.LazyGetter<Integer> expected, String errorMessage) {
         return new SameCondition<Integer, String>(expected, errorMessage) {
             @Override
