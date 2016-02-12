@@ -29,7 +29,13 @@ public final class Conditions {
         return new SameTextCondition<>(expected, errorMessage);
     }
 
-    public static Condition<Boolean, String> same(boolean expected, String errorMessage) {
+    public static Condition<CharSequence, String> same(
+            SameCondition.LazyGetter<CharSequence> expected, String errorMessage) {
+        return new SameTextCondition<>(expected, errorMessage);
+    }
+
+    public static Condition<Boolean, String> same(
+            SameCondition.LazyGetter<Boolean> expected, String errorMessage) {
         return new SameCondition<Boolean, String>(expected, errorMessage) {
             @Override
             protected boolean equalsBetween(Boolean v1, Boolean v2) {
@@ -38,7 +44,8 @@ public final class Conditions {
         };
     }
 
-    public static Condition<Integer, String> same(int expected, String errorMessage) {
+    public static Condition<Integer, String> same(
+            SameCondition.LazyGetter<Integer> expected, String errorMessage) {
         return new SameCondition<Integer, String>(expected, errorMessage) {
             @Override
             protected boolean equalsBetween(Integer v1, Integer v2) {
