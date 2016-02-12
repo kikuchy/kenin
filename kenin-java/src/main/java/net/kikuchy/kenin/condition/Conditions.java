@@ -1,5 +1,6 @@
 package net.kikuchy.kenin.condition;
 
+import net.kikuchy.kenin.internal.AlphaNumericCondition;
 import net.kikuchy.kenin.internal.AlphabetCondition;
 import net.kikuchy.kenin.internal.NumericCondition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
@@ -83,5 +84,13 @@ public final class Conditions {
 
     public static Condition<CharSequence, String> alphabet(String errorMessage) {
         return new AlphabetCondition<>(errorMessage);
+    }
+
+    public static Condition<CharSequence, String> alphanumeric() {
+        return new AlphaNumericCondition<>("Value must be alphanumeric.");
+    }
+
+    public static Condition<CharSequence, String> alphanumeric(String errorMessage) {
+        return new AlphaNumericCondition<>(errorMessage);
     }
 }
