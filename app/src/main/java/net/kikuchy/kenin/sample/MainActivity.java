@@ -5,9 +5,11 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import net.kikuchy.kenin.KeninAndroid;
-import net.kikuchy.kenin.condition.CompositeCondition;
 import net.kikuchy.kenin.condition.Conditions;
 import net.kikuchy.kenin.internal.SameCondition;
+
+import static net.kikuchy.kenin.condition.CompositeCondition.and;
+import static net.kikuchy.kenin.condition.CompositeCondition.or;
 
 public class MainActivity extends AppCompatActivity {
     private TextInputLayout mUserId;
@@ -28,23 +30,20 @@ public class MainActivity extends AppCompatActivity {
         KeninAndroid
                 .builder(mUserId)
                 .setCondition(
-                        CompositeCondition.and(
+                        and(
                                 Conditions.requireField("require!!!! must put some value!!"),
-                                CompositeCondition.or(
-                                        Conditions.alphabet(),
-                                        Conditions.numeric()
-                                )
+                                or(Conditions.alphabet(), Conditions.numeric())
                         )
                 )
                 .build();
         KeninAndroid.builder(mPassword)
                 .setCondition(
-                        CompositeCondition.and(
+                        and(
                                 Conditions.alphanumeric("BE ALPHANUMERIC!!!!!!"),
                                 Conditions.lengthMin(6, "Short password, risk your money.")))
                 .build();
         KeninAndroid.builder(mPassConf)
-                .setCondition(Conditions.same(new SameCondition.LazyGetter<CharSequence>() {
+                .setCondition(Conditions.sameText(new SameCondition.LazyGetter<CharSequence>() {
                     @Override
                     public CharSequence get() {
                         return mPassword.getEditText().getText().toString();
