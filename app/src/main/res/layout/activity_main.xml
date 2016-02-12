@@ -18,8 +18,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:hint="It isn't accept empty"/>
+            android:text="HelloWorld"
+            android:hint="Your ID (only alphabet or numeric, required)"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -31,6 +31,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:hint="Just accepts string 'password'"/>
+            android:hint="Password (Alphanumeric, min 6 chars, required)"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/password_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:hint="Confirm Password"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:hint="How many apps did you make? (Numeric, optional)"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
