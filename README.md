@@ -9,7 +9,7 @@ Realtime validation framework for Java and Android.
 
 ## Simple Usage
 
-(Demonstration GIF here)
+![kenin demo](https://raw.githubusercontent.com/kikuchy/kenin/master/kenin_demo.gif)
 
 ```java
 TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
