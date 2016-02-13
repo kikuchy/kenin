@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import net.kikuchy.kenin.KeninAndroid;
+import net.kikuchy.kenin.condition.AndroidConditions;
 import net.kikuchy.kenin.condition.Conditions;
 import net.kikuchy.kenin.internal.SameCondition;
 
@@ -43,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
                                 Conditions.lengthMin(6, "Short password, risk your money.")))
                 .build();
         KeninAndroid.builder(mPassConf)
-                .setCondition(Conditions.sameText(new SameCondition.LazyGetter<CharSequence>() {
-                    @Override
-                    public CharSequence get() {
-                        return mPassword.getEditText().getText().toString();
-                    }
-                }, "😞"))
+                .setCondition(AndroidConditions.confirm(mPassword, "😞"))
                 .build();
         KeninAndroid.builder(mAmount)
                 .setCondition(Conditions.numeric("Read the hint above????"))
