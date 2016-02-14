@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import net.kikuchy.kenin.KeninAndroid;
 import net.kikuchy.kenin.condition.AndroidConditions;
 import net.kikuchy.kenin.condition.Conditions;
-import net.kikuchy.kenin.internal.SameCondition;
 
 import static net.kikuchy.kenin.condition.CompositeCondition.and;
 import static net.kikuchy.kenin.condition.CompositeCondition.or;
@@ -28,26 +27,21 @@ public class MainActivity extends AppCompatActivity {
         mPassConf = (TextInputLayout) findViewById(R.id.password_confirm);
         mAmount = (TextInputLayout) findViewById(R.id.amount);
 
-        KeninAndroid
-                .builder(mUserId)
-                .setCondition(
-                        and(
-                                Conditions.requireField("require!!!! must put some value!!"),
-                                or(Conditions.alphabet(), Conditions.numeric())
-                        )
-                )
-                .build();
-        KeninAndroid.builder(mPassword)
-                .setCondition(
-                        and(
-                                Conditions.alphanumeric("BE ALPHANUMERIC!!!!!!"),
-                                Conditions.lengthMin(6, "Short password, risk your money.")))
-                .build();
-        KeninAndroid.builder(mPassConf)
-                .setCondition(AndroidConditions.confirm(mPassword, "😞"))
-                .build();
-        KeninAndroid.builder(mAmount)
-                .setCondition(Conditions.numeric("Read the hint above????"))
-                .build();
+        KeninAndroid.create(
+                mUserId,
+                and(
+                        Conditions.requireField("require!!!! must put some value!!"),
+                        or(Conditions.alphabet(), Conditions.numeric())
+                ));
+
+        KeninAndroid.create(
+                mPassword,
+                and(
+                        Conditions.alphanumeric("BE ALPHANUMERIC!!!!!!"),
+                        Conditions.lengthMin(6, "Short password, risk your money.")));
+
+        KeninAndroid.create(mPassConf, AndroidConditions.confirm(mPassword, "😞"));
+
+        KeninAndroid.create(mAmount, Conditions.numeric("Read the hint above????"));
     }
 }

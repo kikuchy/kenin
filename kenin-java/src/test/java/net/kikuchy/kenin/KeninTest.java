@@ -26,79 +26,73 @@ public class KeninTest {
 
     @org.junit.Test
     public void onValueChangedCallsAllReceiver() throws Exception {
-        Kenin<Boolean, String> one = Kenin
-                .<Boolean, String>builder(emitter)
-                .setCondition(condition)
-                .addResultReceiver(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        assertTrue(true);
-                    }
+        Kenin<Boolean, String> one = Kenin.create(emitter, condition);
+        one.addResultReceiver(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                assertTrue(true);
+            }
 
-                    @Override
-                    public void validationFailed(List<ErrorReason<String>> errorReasons) {
-                        assertTrue(false);
-                    }
-                })
-                .addResultReceiver(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        assertTrue(true);
-                    }
+            @Override
+            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+                assertTrue(false);
+            }
+        });
+        one.addResultReceiver(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                assertTrue(true);
+            }
 
-                    @Override
-                    public void validationFailed(List<ErrorReason<String>> errorReasons) {
-                        assertTrue(false);
-                    }
-                })
-                .addResultReceiver(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        assertTrue(true);
-                    }
+            @Override
+            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+                assertTrue(false);
+            }
+        });
+        one.addResultReceiver(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                assertTrue(true);
+            }
 
-                    @Override
-                    public void validationFailed(List<ErrorReason<String>> errorReasons) {
-                        assertTrue(false);
-                    }
-                }).build();
+            @Override
+            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+                assertTrue(false);
+            }
+        });
         condition.setValid(true);
         one.onValueChanged(true);
     }
 
     @org.junit.Test
     public void onValueChangedCalledViaRelay() throws Exception {
-        Kenin<Boolean, String> one = Kenin.
-                <Boolean, String>builder(emitter).
-                setCondition(condition).
-                addResultReceiver(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        assertTrue(true);
-                    }
+        Kenin<Boolean, String> one = Kenin.create(emitter, condition);
+        one.addResultReceiver(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                assertTrue(true);
+            }
 
-                    @Override
-                    public void validationFailed(List list) {
-                        assertTrue(false);
-                    }
-                }).build();
+            @Override
+            public void validationFailed(List list) {
+                assertTrue(false);
+            }
+        });
         condition.setValid(true);
         emitter.emmit(true);
 
-        Kenin<Boolean, String> two = Kenin.
-                <Boolean, String>builder(emitter)
-                .setCondition(condition)
-                .addResultReceiver(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        assertTrue(false);
-                    }
+        Kenin<Boolean, String> two = Kenin.create(emitter, condition);
+        two.addResultReceiver(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                assertTrue(false);
+            }
 
-                    @Override
-                    public void validationFailed(List<ErrorReason<String>> errorReasons) {
-                        assertTrue(true);
-                    }
-                }).build();
+            @Override
+            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+                assertTrue(true);
+            }
+        });
         condition.setValid(false);
         emitter.emmit(true);
     }

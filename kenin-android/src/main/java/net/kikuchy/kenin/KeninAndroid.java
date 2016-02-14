@@ -1,11 +1,11 @@
 package net.kikuchy.kenin;
 
-import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.CachedResultReceiver;
 import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ResultReceiver;
@@ -17,15 +17,14 @@ import java.util.List;
  * Created by hiroshi.kikuchi on 2016/02/01.
  */
 public class KeninAndroid<V, E> extends Kenin<V, E> {
-    protected Context context;
-
-    protected KeninAndroid(Builder<V, E> builder) {
-        super(builder);
-        this.context = builder.context;
+    protected KeninAndroid(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+        super(relay, condition);
     }
 
-    public static <E> Kenin.Builder<CharSequence, E> builder(final EditText editText) {
-        return new Builder<>(new ValueChangedEventRelay<CharSequence>() {
+
+    public static <E> Kenin<CharSequence, E> create(
+            final EditText editText, final Condition<CharSequence, E> condition) {
+        return new KeninAndroid<>(new ValueChangedEventRelay<CharSequence>() {
             @Override
             public void relay(final net.kikuchy.kenin.trigger.ValueChangedEventEmitter<CharSequence> emitter) {
                 editText.addTextChangedListener(new TextWatcher() {
@@ -45,42 +44,31 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
                     }
                 });
             }
-        }, editText.getContext());
+        }, condition);
     }
 
-    public static Kenin.Builder<CharSequence, String> builder(final TextInputLayout textInputLayout) {
-        return KeninAndroid.<String>builder(textInputLayout.getEditText())
-                .addResultReceiver(new CachedResultReceiver<>(new ResultReceiver<String>() {
-                    @Override
-                    public void validationSucceeded() {
-                        textInputLayout.setError(null);
+    public static Kenin<CharSequence, String> create(
+            final TextInputLayout textInputLayout,
+            final Condition<CharSequence, String> condition) {
+        Kenin<CharSequence, String> kenin = create(textInputLayout.getEditText(), condition);
+        kenin.addResultReceiver(new CachedResultReceiver<>(new ResultReceiver<String>() {
+            @Override
+            public void validationSucceeded() {
+                textInputLayout.setError(null);
+            }
+
+            @Override
+            public void validationFailed(List<ErrorReason<String>> errorMessages) {
+                StringBuilder builder = new StringBuilder();
+                for (ErrorReason<String> err : errorMessages) {
+                    if (builder.length() != 0) {
+                        builder.append('\n');
                     }
-
-                    @Override
-                    public void validationFailed(List<ErrorReason<String>> errorMessages) {
-                        StringBuilder builder = new StringBuilder();
-                        for (ErrorReason<String> err : errorMessages) {
-                            if (builder.length() != 0) {
-                                builder.append('\n');
-                            }
-                            builder.append(err.getReason());
-                        }
-                        textInputLayout.setError(builder.toString());
-                    }
-                }));
-    }
-
-    public static class Builder<T, E> extends Kenin.Builder<T, E> {
-        private Context context;
-
-        protected Builder(ValueChangedEventRelay<T> relay, Context context) {
-            super(relay);
-            this.context = context;
-        }
-
-        public Builder<T, E> setContext(Context context) {
-            this.context = context;
-            return this;
-        }
+                    builder.append(err.getReason());
+                }
+                textInputLayout.setError(builder.toString());
+            }
+        }));
+        return kenin;
     }
 }

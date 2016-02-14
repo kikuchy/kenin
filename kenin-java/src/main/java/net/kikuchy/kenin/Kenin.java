@@ -17,12 +17,11 @@ public class Kenin<V, E> {
         }
     };
     protected Condition<V, E> condition;
-    protected Set<ResultReceiver<E>> resultReceivers;
+    protected Set<ResultReceiver<E>> resultReceivers = new HashSet<>();
 
-    protected Kenin(Builder<V, E> builder) {
-        this.condition = builder.condition;
-        this.resultReceivers = builder.resultReceivers;
-        builder.relay.relay(emitter);
+    protected Kenin(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+        this.condition = condition;
+        relay.relay(emitter);
     }
 
     public void onValueChanged(V value) {
@@ -36,31 +35,15 @@ public class Kenin<V, E> {
         }
     }
 
-    public static <V, E> Builder<V, E> builder(ValueChangedEventRelay<V> relay) {
-        return new Builder<>(relay);
+    public void addResultReceiver(ResultReceiver<E> resultReceiver) {
+        resultReceivers.add(resultReceiver);
     }
 
-    public static class Builder<V, E> {
-        private ValueChangedEventRelay<V> relay;
-        private Condition<V, E> condition;
-        private HashSet<ResultReceiver<E>> resultReceivers = new HashSet<>();
+    public void removeResultReceiver(ResultReceiver<E> resultReceiver) {
+        resultReceivers.remove(resultReceiver);
+    }
 
-        protected Builder(ValueChangedEventRelay<V> relay) {
-            this.relay = relay;
-        }
-
-        public Builder<V, E> setCondition(Condition<V, E> condition) {
-            this.condition = condition;
-            return this;
-        }
-
-        public Builder<V, E> addResultReceiver(ResultReceiver<E> resultReceiver) {
-            this.resultReceivers.add(resultReceiver);
-            return this;
-        }
-
-        public Kenin<V, E> build() {
-            return new Kenin<>(this);
-        }
+    public static <V, E> Kenin<V, E> create(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+        return new Kenin<>(relay, condition);
     }
 }
