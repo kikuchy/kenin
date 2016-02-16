@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.CachedResultReceiver;
+import net.kikuchy.kenin.result.ReasonStringifyResultReceiver;
 import net.kikuchy.kenin.result.ResultReceiver;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
@@ -46,28 +47,44 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
         }, condition);
     }
 
+    public static <E> Kenin<CharSequence, E> create(
+            final TextInputLayout textInputLayout,
+            final Condition<CharSequence, E> condition,
+            final ReasonStringifyResultReceiver.Stringifier<E> stringifier) {
+        Kenin<CharSequence, E> kenin = create(textInputLayout.getEditText(), condition);
+        kenin.addResultReceiver(
+                new CachedResultReceiver<>(
+                        new ReasonStringifyResultReceiver<>(stringifier,
+                                new ResultReceiver<String>() {
+                                    @Override
+                                    public void validationSucceeded() {
+                                        textInputLayout.setError(null);
+                                    }
+
+                                    @Override
+                                    public void validationFailed(List<String> errorMessages) {
+                                        StringBuilder builder = new StringBuilder();
+                                        for (String err : errorMessages) {
+                                            if (builder.length() != 0) {
+                                                builder.append('\n');
+                                            }
+                                            builder.append(err);
+                                        }
+                                        textInputLayout.setError(builder.toString());
+                                    }
+                                })));
+        return kenin;
+    }
+
     public static Kenin<CharSequence, String> create(
             final TextInputLayout textInputLayout,
             final Condition<CharSequence, String> condition) {
-        Kenin<CharSequence, String> kenin = create(textInputLayout.getEditText(), condition);
-        kenin.addResultReceiver(new CachedResultReceiver<>(new ResultReceiver<String>() {
-            @Override
-            public void validationSucceeded() {
-                textInputLayout.setError(null);
-            }
-
-            @Override
-            public void validationFailed(List<String> errorMessages) {
-                StringBuilder builder = new StringBuilder();
-                for (String err : errorMessages) {
-                    if (builder.length() != 0) {
-                        builder.append('\n');
+        return create(textInputLayout, condition,
+                new ReasonStringifyResultReceiver.Stringifier<String>() {
+                    @Override
+                    public String stringify(String reason) {
+                        return reason;
                     }
-                    builder.append(err);
-                }
-                textInputLayout.setError(builder.toString());
-            }
-        }));
-        return kenin;
+                });
     }
 }
