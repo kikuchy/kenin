@@ -1,7 +1,6 @@
 package net.kikuchy.kenin;
 
 import net.kikuchy.kenin.result.CachedResultReceiver;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ResultReceiver;
 
 import org.junit.Before;
@@ -43,44 +42,14 @@ public class CachedResultReceiverTest {
         ResultReceiver<String> cached = new CachedResultReceiver<>(counter);
 
         // call twice
-        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "hoge";
-            }
-        }, new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "fuga";
-            }
-        }));
-        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "hoge";
-            }
-        }, new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "fuga";
-            }
-        }));
+        cached.validationFailed(Arrays.asList("hoge", "fuga"));
+        cached.validationFailed(Arrays.asList("hoge", "fuga"));
 
         //but called "failed" once
         assertThat(counter.countFail, is(1));
 
         // call fail with other messages
-        cached.validationFailed(Arrays.asList(new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "hoge";
-            }
-        }, new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "moge";
-            }
-        }));
+        cached.validationFailed(Arrays.asList("hoge", "moge"));
 
         // and counter is counted up
         assertThat(counter.countFail, is(2));
@@ -96,7 +65,7 @@ public class CachedResultReceiverTest {
         }
 
         @Override
-        public void validationFailed(List<ErrorReason<E>> errorReasons) {
+        public void validationFailed(List<E> errorReasons) {
             countFail++;
         }
     }

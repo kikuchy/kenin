@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class ValidationResult<E> {
     private boolean isValid = false;
-    private List<ErrorReason<E>> errorReasons;
+    private List<E> errorReasons;
 
-    public ValidationResult(boolean isValid, List<ErrorReason<E>> errorReasons) {
+    public ValidationResult(boolean isValid, List<E> errorReasons) {
         this.isValid = isValid;
         this.errorReasons = errorReasons;
     }
@@ -18,7 +18,7 @@ public class ValidationResult<E> {
         return isValid;
     }
 
-    public List<ErrorReason<E>> getReasons() {
+    public List<E> getReasons() {
         return errorReasons;
     }
 }

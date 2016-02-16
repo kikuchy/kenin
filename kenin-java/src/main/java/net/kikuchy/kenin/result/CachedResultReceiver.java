@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class CachedResultReceiver<E> implements ResultReceiver<E> {
     private boolean isLastValidationSucceeded = false;
-    private List<ErrorReason<E>> lastErrorMessages;
+    private List<E> lastErrorMessages;
     private ResultReceiver<E> trueReceiver;
 
     public CachedResultReceiver(ResultReceiver<E> receiver) {
@@ -23,7 +23,7 @@ public class CachedResultReceiver<E> implements ResultReceiver<E> {
     }
 
     @Override
-    public void validationFailed(List<ErrorReason<E>> errorReasons) {
+    public void validationFailed(List<E> errorReasons) {
         if (isLastValidationSucceeded != false ||
                 !errorReasons.equals(lastErrorMessages)) {
             isLastValidationSucceeded = false;

@@ -1,7 +1,6 @@
 package net.kikuchy.kenin.internal;
 
 import net.kikuchy.kenin.condition.Condition;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public abstract class SameCondition<V, E> implements Condition<V, E> {
     private final LazyGetter<V> expected;
-    private final ErrorReason<E> message;
+    private final E message;
 
     public SameCondition(final V expected, final E errorReason) {
         this.expected = new LazyGetter<V>() {
@@ -21,28 +20,18 @@ public abstract class SameCondition<V, E> implements Condition<V, E> {
                 return expected;
             }
         };
-        this.message = new ErrorReason<E>() {
-            @Override
-            public E getReason() {
-                return errorReason;
-            }
-        };
+        this.message = errorReason;
     }
 
     public SameCondition(LazyGetter<V> expected, final E errorReason) {
         this.expected = expected;
-        this.message = new ErrorReason<E>() {
-            @Override
-            public E getReason() {
-                return errorReason;
-            }
-        };
+        this.message = errorReason;
     }
 
     @Override
     public ValidationResult<E> validate(V value) {
         boolean isValid = equalsBetween(value, expected.get());
-        List<ErrorReason<E>> errors = new ArrayList<>();
+        List<E> errors = new ArrayList<>();
         if (!isValid) {
             errors.add(message);
         }

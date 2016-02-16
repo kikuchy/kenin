@@ -7,7 +7,6 @@ import android.widget.EditText;
 
 import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.CachedResultReceiver;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ResultReceiver;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
@@ -58,13 +57,13 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
             }
 
             @Override
-            public void validationFailed(List<ErrorReason<String>> errorMessages) {
+            public void validationFailed(List<String> errorMessages) {
                 StringBuilder builder = new StringBuilder();
-                for (ErrorReason<String> err : errorMessages) {
+                for (String err : errorMessages) {
                     if (builder.length() != 0) {
                         builder.append('\n');
                     }
-                    builder.append(err.getReason());
+                    builder.append(err);
                 }
                 textInputLayout.setError(builder.toString());
             }

@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface ResultReceiver<E> {
     void validationSucceeded();
-    void validationFailed(List<ErrorReason<E>> errorReasons);
+    void validationFailed(List<E> errorReasons);
 }
