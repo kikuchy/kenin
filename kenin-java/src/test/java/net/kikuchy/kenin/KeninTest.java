@@ -1,7 +1,6 @@
 package net.kikuchy.kenin;
 
 import net.kikuchy.kenin.condition.TestCondition;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ResultReceiver;
 import net.kikuchy.kenin.trigger.TestValueChangedEventRelay;
 
@@ -34,7 +33,7 @@ public class KeninTest {
             }
 
             @Override
-            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+            public void validationFailed(List<String> errorReasons) {
                 assertTrue(false);
             }
         });
@@ -45,7 +44,7 @@ public class KeninTest {
             }
 
             @Override
-            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+            public void validationFailed(List<String> errorReasons) {
                 assertTrue(false);
             }
         });
@@ -56,7 +55,7 @@ public class KeninTest {
             }
 
             @Override
-            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+            public void validationFailed(List<String> errorReasons) {
                 assertTrue(false);
             }
         });
@@ -89,7 +88,7 @@ public class KeninTest {
             }
 
             @Override
-            public void validationFailed(List<ErrorReason<String>> errorReasons) {
+            public void validationFailed(List<String> errorReasons) {
                 assertTrue(true);
             }
         });

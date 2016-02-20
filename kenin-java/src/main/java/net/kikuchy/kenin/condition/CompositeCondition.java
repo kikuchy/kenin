@@ -1,7 +1,6 @@
 package net.kikuchy.kenin.condition;
 
 import net.kikuchy.kenin.internal.AlwaysValidCondition;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public abstract class CompositeCondition<V, E> implements Condition<V, E> {
         ValidationResult<E> rightResult = right.validate(value);
         ValidationResult<E> leftResult = left.validate(value);
         boolean isValid = binaryOperate(rightResult, leftResult);
-        List<ErrorReason<E>> errors = new ArrayList<>(rightResult.getReasons());
+        List<E> errors = new ArrayList<>(rightResult.getReasons());
         if (!isValid) {
             errors.addAll(leftResult.getReasons());
         }

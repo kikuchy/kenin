@@ -1,7 +1,6 @@
 package net.kikuchy.kenin.internal;
 
 import net.kikuchy.kenin.condition.Condition;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 import java.util.ArrayList;
@@ -13,17 +12,12 @@ import java.util.regex.Pattern;
  * Created by hiroshi.kikuchi on 2016/02/12.
  */
 public class PatternMatchCondition<E> implements Condition<CharSequence, E> {
-    private final ErrorReason<E> message;
+    private final E message;
     private Pattern pattern;
 
     public PatternMatchCondition(Pattern pattern, final E errorReason) {
         this.pattern = pattern;
-        this.message = new ErrorReason<E>() {
-            @Override
-            public E getReason() {
-                return errorReason;
-            }
-        };
+        this.message = errorReason;
     }
 
     public PatternMatchCondition(String pattern, final E errorReason) {
@@ -32,7 +26,7 @@ public class PatternMatchCondition<E> implements Condition<CharSequence, E> {
 
     @Override
     public ValidationResult<E> validate(CharSequence value) {
-        List<ErrorReason<E>> errors = new ArrayList<>();
+        List<E> errors = new ArrayList<>();
         Matcher matcher = pattern.matcher(value);
         boolean isValid = matcher.find();
         if (!isValid)

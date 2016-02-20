@@ -1,6 +1,5 @@
 package net.kikuchy.kenin.condition;
 
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 import java.util.ArrayList;
@@ -24,13 +23,8 @@ public final class TestCondition<V> implements Condition<V, String> {
 
     @Override
     public ValidationResult<String> validate(V value) {
-        List<ErrorReason<String>> errors = new ArrayList<>();
-        errors.add(new ErrorReason<String>() {
-            @Override
-            public String getReason() {
-                return "test";
-            }
-        });
+        List<String> errors = new ArrayList<>();
+        errors.add("test");
         return new ValidationResult<>(isValid, errors);
     }
 }

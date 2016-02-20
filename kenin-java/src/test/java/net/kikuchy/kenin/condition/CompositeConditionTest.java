@@ -1,7 +1,6 @@
 package net.kikuchy.kenin.condition;
 
 import net.kikuchy.kenin.internal.AlwaysValidCondition;
-import net.kikuchy.kenin.result.ErrorReason;
 import net.kikuchy.kenin.result.ValidationResult;
 
 import org.junit.Before;
@@ -10,7 +9,9 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by hiroshi.kikuchi on 2016/02/12.
@@ -58,9 +59,9 @@ public class CompositeConditionTest {
         Condition<String, Integer> condition = CompositeCondition.and(new IdentifiedCondition(1),
                 new IdentifiedCondition(2), new IdentifiedCondition(3));
         ValidationResult<Integer> one = condition.validate("hoge");
-        assertThat(one.getReasons().get(0).getReason(), is(1));
-        assertThat(one.getReasons().get(1).getReason(), is(2));
-        assertThat(one.getReasons().get(2).getReason(), is(3));
+        assertThat(one.getReasons().get(0), is(1));
+        assertThat(one.getReasons().get(1), is(2));
+        assertThat(one.getReasons().get(2), is(3));
     }
 
     @Test
@@ -97,7 +98,7 @@ public class CompositeConditionTest {
                 new AlwaysValidCondition<String, Integer>(), new IdentifiedCondition(3));
         ValidationResult<Integer> one = conditionOne.validate("hoge");
         assertThat(one.getReasons().size(), is(1));
-        assertThat(one.getReasons().get(0).getReason(), is(1));
+        assertThat(one.getReasons().get(0), is(1));
 
         Condition<String, Integer> conditionTwo = CompositeCondition.or(
                 new AlwaysValidCondition<String, Integer>(),
@@ -109,9 +110,9 @@ public class CompositeConditionTest {
                 new IdentifiedCondition(2), new IdentifiedCondition(3));
         ValidationResult<Integer> three = conditionThree.validate("hoge");
         assertThat(three.getReasons().size(), is(3));
-        assertThat(three.getReasons().get(0).getReason(), is(1));
-        assertThat(three.getReasons().get(1).getReason(), is(2));
-        assertThat(three.getReasons().get(2).getReason(), is(3));
+        assertThat(three.getReasons().get(0), is(1));
+        assertThat(three.getReasons().get(1), is(2));
+        assertThat(three.getReasons().get(2), is(3));
     }
 
     static class IdentifiedCondition implements Condition<String, Integer> {
@@ -123,12 +124,7 @@ public class CompositeConditionTest {
 
         @Override
         public ValidationResult<Integer> validate(String value) {
-            ErrorReason<Integer> result = new ErrorReason<Integer>() {
-                @Override
-                public Integer getReason() {
-                    return id;
-                }
-            };
+            int result = id;
             return new ValidationResult<>(false, Arrays.asList(result));
         }
     }
