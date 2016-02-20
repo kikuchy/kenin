@@ -2,6 +2,7 @@ package net.kikuchy.kenin.condition;
 
 import net.kikuchy.kenin.internal.AlphaNumericCondition;
 import net.kikuchy.kenin.internal.AlphabetCondition;
+import net.kikuchy.kenin.internal.AssertTrueCondition;
 import net.kikuchy.kenin.internal.NumericCondition;
 import net.kikuchy.kenin.internal.PatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
@@ -21,6 +22,14 @@ public final class Conditions {
 
     public static Condition<CharSequence, String> requireField(String errorMessage) {
         return new RequireCondition<>(errorMessage);
+    }
+
+    public static Condition<Boolean, String> requireChecked(String errorMessage) {
+        return new AssertTrueCondition<>(errorMessage);
+    }
+
+    public static Condition<Boolean, String> requireChecked() {
+        return requireChecked("This field is required.");
     }
 
     public static Condition<CharSequence, String> sameText(CharSequence expected) {

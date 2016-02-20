@@ -3,6 +3,7 @@ package net.kikuchy.kenin;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import net.kikuchy.kenin.condition.Conditions;
@@ -13,7 +14,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class KeninAndroidTest {
@@ -55,5 +56,23 @@ public class KeninAndroidTest {
             }
         });
         et.setText("a");
+    }
+
+    @Test
+    public void checkBox() throws Exception {
+        CheckBox cb = new CheckBox(getContext());
+        KeninAndroid.create(cb, Conditions.requireChecked())
+                .addResultReceiver(new ResultReceiver<String>() {
+                    @Override
+                    public void validationSucceeded() {
+                        assertTrue(true);
+                    }
+
+                    @Override
+                    public void validationFailed(List<String> list) {
+                        assertTrue(false);
+                    }
+                });
+        cb.setChecked(true);
     }
 }
