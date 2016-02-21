@@ -4,12 +4,21 @@ Realtime validation framework for Java and Android.
 
 **Note:** This library is before major release. Breaking changes will happen.
 
+![kenin demo](https://raw.githubusercontent.com/kikuchy/kenin/master/kenin_demo.gif)
+
 
 # Usage
 
-## Simple Usage
+## 1. Add dependencies for your `build.gradle`
 
-![kenin demo](https://raw.githubusercontent.com/kikuchy/kenin/master/kenin_demo.gif)
+```groovy
+dependencies {
+    compile 'net.kikuchy.kenin:kenin-android:0.0.2' // for android
+    // compile 'net.kikuchy.kenin:kenin-java:0.0.2' // pure java
+}
+```
+
+## 2. Write validating configuration
 
 ```java
 TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
@@ -34,6 +43,8 @@ KeninAndroid.
     build();
 ```
 
+
+# Customize
 
 ## `Condition`
 
