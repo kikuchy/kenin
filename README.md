@@ -48,33 +48,52 @@ KeninAndroid.
 
 ## `Condition`
 
-Value is checked by the class implements `Condition<V, E>` interface.
+Form value is checked by the class implements `Condition<V, E>` interface.
 Type parameter `V` is type of value will be validated  and `E` is type of error reporting.
 You can make original `Condition` for your demand.
 
 ```java
 KeninAndroid.
-    builder(mUserId).
-    setCondition(new Condition<CharSequence, Integer>() {
+    create(mTextInputLayout, new Condition<CharSequence, Integer>() {
         @Override
         public ValidationResult<Integer> validate(CharSequence value) {
             boolean isValid = somethigSpecialValidating(value);
-            List<ErrorReason<Integer>> errors = new ArrayList<>();
-            errors.add(new ErrorReason() {
-                @Override
-                public Integer getReason() {
-                    return R.string.validation_failed;
-                }
-            });
+            List<Integer> errors = new ArrayList<>();
+            if (!isValid)
+                errors.add(R.string.validation_failed);
             return new ValidationResult(isValid, errors);
         }
-    }).
-    build();
+    });
 ```
 
-Results of validation is represented `ValidationResult` class. It contains that value is valid or not and validation error messages.
+Results of validation is represented `ValidationResult` class. It contains that value is valid or not and validation error reasons.
 
-`ErrorMessage` represents single validation error message. For future, it will wrap not only String message but also Android Resource IDs or Enums.
+Error reasons are not only String but also Enum or android resource ID.
+
+
+## `ResultReciever`
+
+`ResultReciever<E>` interface recieves `ValidationResult` and defines proccessing result.
+
+You can make your own `ResultReciever` and set by the `addResultReciever()` method.
+
+```java
+KeninAndroid.
+    create(mEditText, Conditions.requireField()).
+    addResultReciever(new ResultReciever<String> {
+        @Override
+        public void validationSucceeded() {
+            mSendButton.setEnabled(true);
+            mTextView.setText("");
+        }
+        
+        @Override
+        public void validationFailed(List<String> errorReasons) {
+            mSendButton.setEnabled(false);
+            mTextView.setText("Error!");
+        }
+    });
+```
 
 
 # Concept
