@@ -112,6 +112,16 @@ KeninAndroid.
 **Battery Included** ... Kenin-Android provides useful classes and methods for validating Android widgets and easy to start using.
 
 
+# Change Log
+
+* 0.0.3
+	* Support Checkbox and add some Conditions
+* 0.0.2
+	* Support `CompositCondition`, `and()` and `or()`
+	* JCenter debut!
+* 0.0.1
+	* :tada:
+
 
 # Licence
 
