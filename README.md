@@ -1,4 +1,4 @@
-# Kenin [![Build Status](https://travis-ci.org/kikuchy/kenin.svg?branch=master)](https://travis-ci.org/kikuchy/kenin)
+# Kenin [![Build Status](https://travis-ci.org/kikuchy/kenin.svg?branch=master)](https://travis-ci.org/kikuchy/kenin) [ ![Download](https://api.bintray.com/packages/kikuchy/maven/kenin-java/images/download.svg) ](https://bintray.com/kikuchy/maven/kenin-java/_latestVersion)
 
 Realtime validation framework for Java and Android.
 
@@ -13,8 +13,8 @@ Realtime validation framework for Java and Android.
 
 ```groovy
 dependencies {
-    compile 'net.kikuchy.kenin:kenin-android:0.0.2' // for android
-    // compile 'net.kikuchy.kenin:kenin-java:0.0.2' // pure java
+    compile 'net.kikuchy.kenin:kenin-android:0.0.3' // for android
+    // compile 'net.kikuchy.kenin:kenin-java:0.0.3' // pure java
 }
 ```
 
