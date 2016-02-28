@@ -25,22 +25,22 @@ TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
 
 // Writing simple,
 KeninAndroid.
-    builder(mUserId).
-    setCondition(Conditions.requireField()).
-    build();
+    create(mUserId, Conditions.requireField());
 
 // or
 
 // Powerful expression.
 KeninAndroid.
-    builder(mUserId).
-    setCondition(
+    create(
+        mUserId,
         and(
             Conditions.requireField(),
             or(
                 Conditions.alphabet(),
-                Conditions.numeric())).
-    build();
+                Conditions.numeric()
+            )
+        )
+    );
 ```
 
 
