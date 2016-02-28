@@ -3,12 +3,15 @@ package net.kikuchy.kenin;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import net.kikuchy.kenin.condition.Condition;
 import net.kikuchy.kenin.result.CachedResultReceiver;
 import net.kikuchy.kenin.result.ReasonStringifyResultReceiver;
 import net.kikuchy.kenin.result.ResultReceiver;
+import net.kikuchy.kenin.trigger.ValueChangedEventEmitter;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
 import java.util.List;
@@ -86,5 +89,20 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
                         return reason;
                     }
                 });
+    }
+
+    public static <E> Kenin<Boolean, E> create(
+            final CheckBox checkBox, final Condition<Boolean, E> condition) {
+        return new KeninAndroid<>(new ValueChangedEventRelay<Boolean>() {
+            @Override
+            public void relay(final ValueChangedEventEmitter<Boolean> emitter) {
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        emitter.emit(b);
+                    }
+                });
+            }
+        }, condition);
     }
 }
