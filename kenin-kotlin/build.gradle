@@ -8,7 +8,7 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
+//apply plugin: 'java'
 apply plugin: 'kotlin'
 
 repositories {
@@ -16,6 +16,7 @@ repositories {
 }
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/tests/kotlin'
 }
 
 dependencies {
@@ -23,4 +24,5 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile project(path: ':kenin-java')
     testCompile 'junit:junit:4.12'
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
 }
