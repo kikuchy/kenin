@@ -13,11 +13,7 @@ class KeninExtensionKtTest {
 
     @Test
     fun testKenin() {
-        val relay = object : ValueChangedEventRelay<String> {
-            override fun relay(emitter: ValueChangedEventEmitter<String>?) {
-                emitter?.emit("hoge")
-            }
-        }
+        val relay = ValueChangedEventRelay<kotlin.String> { emitter -> emitter?.emit("hoge") }
         relay.kenin { 
             sameText("moge") and lengthJust(4)
         }

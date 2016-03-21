@@ -8,9 +8,9 @@ import net.kikuchy.kenin.trigger.ValueChangedEventRelay
 /**
  * Created by kikuchy on 16/02/29.
  */
-fun <V, E> ValueChangedEventRelay<V>.kenin(condition: Condition<V, E>) = Kenin(this, condition)
+fun <V, E> ValueChangedEventRelay<V>.kenin(condition: Condition<in V, E>) = Kenin(this, condition)
 
-fun <V, E> ValueChangedEventRelay<V>.kenin(init: KeninBuilder.() -> Condition<V, E>): Kenin<V, E> {
+fun <V, E> ValueChangedEventRelay<V>.kenin(init: KeninBuilder.() -> Condition<in V, E>): Kenin<V, E> {
     val builder = KeninBuilder()
     return Kenin(this, builder.init())
 }
