@@ -20,13 +20,13 @@ import java.util.List;
  * Created by hiroshi.kikuchi on 2016/02/01.
  */
 public class KeninAndroid<V, E> extends Kenin<V, E> {
-    protected KeninAndroid(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+    protected KeninAndroid(ValueChangedEventRelay<V> relay, Condition<? super V, E> condition) {
         super(relay, condition);
     }
 
 
     public static <E> Kenin<CharSequence, E> create(
-            final EditText editText, final Condition<CharSequence, E> condition) {
+            final EditText editText, final Condition<? super CharSequence, E> condition) {
         return new KeninAndroid<>(new ValueChangedEventRelay<CharSequence>() {
             @Override
             public void relay(final net.kikuchy.kenin.trigger.ValueChangedEventEmitter<CharSequence> emitter) {
@@ -52,7 +52,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
 
     public static <E> Kenin<CharSequence, E> create(
             final TextInputLayout textInputLayout,
-            final Condition<CharSequence, E> condition,
+            final Condition<? super CharSequence, E> condition,
             final ReasonStringifyResultReceiver.Stringifier<E> stringifier) {
         Kenin<CharSequence, E> kenin = create(textInputLayout.getEditText(), condition);
         kenin.addResultReceiver(
@@ -81,7 +81,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
 
     public static Kenin<CharSequence, String> create(
             final TextInputLayout textInputLayout,
-            final Condition<CharSequence, String> condition) {
+            final Condition<? super CharSequence, String> condition) {
         return create(textInputLayout, condition,
                 new ReasonStringifyResultReceiver.Stringifier<String>() {
                     @Override
@@ -92,7 +92,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
     }
 
     public static <E> Kenin<Boolean, E> create(
-            final CheckBox checkBox, final Condition<Boolean, E> condition) {
+            final CheckBox checkBox, final Condition<? super Boolean, E> condition) {
         return new KeninAndroid<>(new ValueChangedEventRelay<Boolean>() {
             @Override
             public void relay(final ValueChangedEventEmitter<Boolean> emitter) {

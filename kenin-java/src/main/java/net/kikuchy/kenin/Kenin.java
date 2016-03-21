@@ -16,10 +16,10 @@ public class Kenin<V, E> {
             Kenin.this.onValueChanged(value);
         }
     };
-    protected Condition<V, E> condition;
+    protected Condition<? super V, E> condition;
     protected Set<ResultReceiver<E>> resultReceivers = new HashSet<>();
 
-    protected Kenin(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+    protected Kenin(ValueChangedEventRelay<V> relay, Condition<? super V, E> condition) {
         this.condition = condition;
         relay.relay(emitter);
     }
@@ -43,7 +43,7 @@ public class Kenin<V, E> {
         resultReceivers.remove(resultReceiver);
     }
 
-    public static <V, E> Kenin<V, E> create(ValueChangedEventRelay<V> relay, Condition<V, E> condition) {
+    public static <V, E> Kenin<V, E> create(ValueChangedEventRelay<V> relay, Condition<? super V, E> condition) {
         return new Kenin<>(relay, condition);
     }
 }
