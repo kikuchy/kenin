@@ -1,8 +1,11 @@
 package net.kikuchy.kenin.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 
 import net.kikuchy.kenin.KeninAndroid;
@@ -62,5 +65,19 @@ public class MainActivity extends AppCompatActivity {
                         mAgreement.setError(errorReasons.get(0));
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add("Kotlin Version");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        startActivity(new Intent(this, KotlinMainActivity.class));
+        return true;
     }
 }
