@@ -18,7 +18,7 @@ fun <V, E> ValueChangedEventRelay<V>.kenin(init: KeninBuilder.() -> Condition<in
 infix fun <V, E> Condition<V, E>.and(a: Condition<V, E>) = CompositeCondition.and(this, a)
 infix fun <V, E> Condition<V, E>.or(a: Condition<V, E>) = CompositeCondition.or(this, a)
 
-class KeninBuilder {
+open class KeninBuilder {
     fun requireField() = Conditions.requireField()
     fun requireField(reason: String) = Conditions.requireField(reason)
     fun requireChecked() = Conditions.requireChecked()
