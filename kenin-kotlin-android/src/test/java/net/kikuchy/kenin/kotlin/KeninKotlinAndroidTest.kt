@@ -1,9 +1,11 @@
-package net.kikuchy.kenin
+package net.kikuchy.kenin.kotlin
 
 import android.content.Context
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import android.widget.EditText
+import net.kikuchy.kenin.kotlin.and
+import net.kikuchy.kenin.kotlin.kenin
 import net.kikuchy.kenin.result.ResultReceiver
 import org.junit.Assert.assertTrue
 import org.junit.Test

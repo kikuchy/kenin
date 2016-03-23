@@ -1,5 +1,7 @@
-package net.kikuchy.kenin
+package net.kikuchy.kenin.kotlin
 
+import net.kikuchy.kenin.kotlin.and
+import net.kikuchy.kenin.kotlin.kenin
 import net.kikuchy.kenin.trigger.ValueChangedEventEmitter
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay
 import org.junit.Test
@@ -13,7 +15,7 @@ class KeninExtensionKtTest {
 
     @Test
     fun testKenin() {
-        val relay = ValueChangedEventRelay<kotlin.String> { emitter -> emitter?.emit("hoge") }
+        val relay = ValueChangedEventRelay<String> { emitter -> emitter?.emit("hoge") }
         relay.kenin { 
             sameText("moge") and lengthJust(4)
         }

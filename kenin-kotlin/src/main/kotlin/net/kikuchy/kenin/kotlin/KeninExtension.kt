@@ -1,5 +1,6 @@
-package net.kikuchy.kenin
+package net.kikuchy.kenin.kotlin
 
+import net.kikuchy.kenin.Kenin
 import net.kikuchy.kenin.condition.CompositeCondition
 import net.kikuchy.kenin.condition.Condition
 import net.kikuchy.kenin.condition.Conditions
@@ -8,11 +9,11 @@ import net.kikuchy.kenin.trigger.ValueChangedEventRelay
 /**
  * Created by kikuchy on 16/02/29.
  */
-fun <V, E> ValueChangedEventRelay<V>.kenin(condition: Condition<in V, E>) = Kenin(this, condition)
+fun <V, E> ValueChangedEventRelay<V>.kenin(condition: Condition<in V, E>) = Kenin.create(this, condition)
 
 fun <V, E> ValueChangedEventRelay<V>.kenin(init: KeninBuilder.() -> Condition<in V, E>): Kenin<V, E> {
     val builder = KeninBuilder()
-    return Kenin(this, builder.init())
+    return Kenin.create(this, builder.init())
 }
 
 infix fun <V, E> Condition<V, E>.and(a: Condition<V, E>) = CompositeCondition.and(this, a)

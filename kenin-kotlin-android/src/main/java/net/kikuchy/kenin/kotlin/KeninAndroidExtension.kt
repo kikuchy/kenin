@@ -1,8 +1,10 @@
-package net.kikuchy.kenin
+package net.kikuchy.kenin.kotlin
 
 import android.support.design.widget.TextInputLayout
 import android.widget.CheckBox
 import android.widget.EditText
+import net.kikuchy.kenin.KeninAndroid
+import net.kikuchy.kenin.kotlin.KeninBuilder
 import net.kikuchy.kenin.condition.AndroidConditions
 import net.kikuchy.kenin.condition.Condition
 import net.kikuchy.kenin.result.ReasonStringifyResultReceiver
