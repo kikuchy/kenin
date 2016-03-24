@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -43,4 +44,12 @@ buildscript {
 }
 repositories {
     mavenCentral()
+}
+
+publish {
+    groupId = 'net.kikuchy.kenin.kotlin'
+    artifactId = 'kenin-kotlin-android'
+    publishVersion = '0.0.4'
+    desc = 'realtime text validator framework for kotlin and android'
+    website = 'https://github.com/kikuchy/kenin'
 }
