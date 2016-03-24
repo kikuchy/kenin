@@ -1,0 +1,37 @@
+buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+//apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'com.novoda.bintray-release'
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/tests/kotlin'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile project(path: ':kenin-java')
+    testCompile 'junit:junit:4.12'
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+}
+
+publish {
+    groupId = 'net.kikuchy.kenin.kotlin'
+    artifactId = 'kenin-kotlin'
+    publishVersion = '0.0.4'
+    desc = 'realtime text validator framework for kotlin and android'
+    website = 'https://github.com/kikuchy/kenin'
+}

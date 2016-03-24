@@ -1,12 +1,12 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "net.kikuchy.kenin"
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
@@ -18,9 +18,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions {
-        abortOnError false
-    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -28,11 +25,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile project(':kenin-kotlin-android')
+    compile 'com.android.support:appcompat-v7:23.2.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile project(path: ':kenin-android')
+    compile project(path: ':kenin-kotlin')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.github.gfx.android.robolectricinstrumentation:robolectric-instrumentation:3.0.8'
 }
 buildscript {
     ext.kotlin_version = '1.0.1'
@@ -45,4 +44,12 @@ buildscript {
 }
 repositories {
     mavenCentral()
+}
+
+publish {
+    groupId = 'net.kikuchy.kenin.kotlin'
+    artifactId = 'kenin-kotlin-android'
+    publishVersion = '0.0.4'
+    desc = 'realtime text validator framework for kotlin and android'
+    website = 'https://github.com/kikuchy/kenin'
 }
