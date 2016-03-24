@@ -13,12 +13,32 @@ Realtime validation framework for Java and Android.
 
 ```groovy
 dependencies {
-    compile 'net.kikuchy.kenin:kenin-android:0.0.3' // for android
-    // compile 'net.kikuchy.kenin:kenin-java:0.0.3' // pure java
+    compile 'net.kikuchy.kenin:kenin-android:0.0.4' // for android
+    compile 'net.kikuchy.kenin.kotlin:kenin-kotlin-android:0.0.4' // for android with Kotlin
+    // compile 'net.kikuchy.kenin:kenin-java:0.0.4' // pure java
 }
 ```
 
 ## 2. Write validating configuration
+
+### Kotlin DSL
+
+```kotlin
+val userId = findViewById(R.id.user_id) as TextInputLayout
+
+// Writing simple,
+userId.kenin { requireField() }
+
+// or
+
+// Powerful expression.
+userId.kenin {
+    requireField() and (alphabet() or numeric())
+}
+```
+
+
+### Java
 
 ```java
 TextInputLayout mUserId = (TextInputLayout) findViewById(R.id.user_id);
@@ -112,8 +132,16 @@ KeninAndroid.
 **Battery Included** ... Kenin-Android provides useful classes and methods for validating Android widgets and easy to start using.
 
 
+## Kenin-Kotlin & Kenin-Kotlin-Android
+
+**Easy to Write and Read** ... The DSL made with Kotlin will help implementing and maintaining your codes.
+
+
 # Change Log
 
+* 0.0.4
+	* Support Kotlin DSL
+	* Expands type boundary
 * 0.0.3
 	* Support Checkbox and add some Conditions
 * 0.0.2
