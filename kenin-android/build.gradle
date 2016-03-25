@@ -32,7 +32,7 @@ dependencies {
 publish {
     groupId = 'net.kikuchy.kenin'
     artifactId = 'kenin-android'
-    publishVersion = '0.0.3'
+    publishVersion = '0.0.4'
     desc = 'realtime text validator framework for java and android'
     website = 'https://github.com/kikuchy/kenin'
 }
