@@ -3,8 +3,9 @@ package net.kikuchy.kenin.condition;
 import net.kikuchy.kenin.internal.AlphaNumericCondition;
 import net.kikuchy.kenin.internal.AlphabetCondition;
 import net.kikuchy.kenin.internal.AssertTrueCondition;
+import net.kikuchy.kenin.internal.FullPatternMatchCondition;
 import net.kikuchy.kenin.internal.NumericCondition;
-import net.kikuchy.kenin.internal.PatternMatchCondition;
+import net.kikuchy.kenin.internal.PartialPatternMatchCondition;
 import net.kikuchy.kenin.internal.RequireCondition;
 import net.kikuchy.kenin.internal.SameCondition;
 import net.kikuchy.kenin.internal.SameTextCondition;
@@ -70,13 +71,22 @@ public final class Conditions {
         };
     }
 
-    public static Condition<CharSequence, String> pattern(String pattern) {
-        return new PatternMatchCondition<>(pattern,
-                String.format("Value must be match with the pattern \"%s\"", pattern));
+    public static Condition<CharSequence, String> partialPattern(String pattern) {
+        return new PartialPatternMatchCondition<>(pattern,
+                String.format("Value must be match with the Pattern \"%s\"", pattern));
     }
 
-    public static Condition<CharSequence, String> pattern(String pattern, String errorMessage) {
-        return new PatternMatchCondition<>(pattern, errorMessage);
+    public static Condition<CharSequence, String> partialPattern(String pattern, String errorMessage) {
+        return new PartialPatternMatchCondition<>(pattern, errorMessage);
+    }
+
+    public static Condition<CharSequence, String> fullPattern(String pattern) {
+        return new FullPatternMatchCondition<>(pattern,
+                String.format("Value must be match perfectly with the Pattern \"%s\"", pattern));
+    }
+
+    public static Condition<CharSequence, String> fullPattern(String pattern, String errorMessage){
+        return new FullPatternMatchCondition<>(pattern, errorMessage);
     }
 
     public static Condition<CharSequence, String> lengthJust(int length) {
