@@ -1,20 +1,18 @@
 package net.kikuchy.kenin.kotlin
 
 import android.content.Context
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
 import android.widget.EditText
-import net.kikuchy.kenin.kotlin.and
-import net.kikuchy.kenin.kotlin.kenin
+import androidx.test.platform.app.InstrumentationRegistry
 import net.kikuchy.kenin.result.ResultReceiver
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 class KeninKotlinAndroidTest {
     internal fun getContext(): Context {
-        return InstrumentationRegistry.getTargetContext()
+        return InstrumentationRegistry.getInstrumentation().context
     }
 
     @Test
@@ -22,17 +20,15 @@ class KeninKotlinAndroidTest {
     fun testEditText() {
         val et = EditText(getContext())
         et.setText("a")
-        et.
-                kenin { sameText("ab") and lengthJust(2) }.
-                addResultReceiver(object : ResultReceiver<String> {
-                    override fun validationSucceeded() {
-                        assertTrue(true)
-                    }
+        et.kenin { sameText("ab") and lengthJust(2) }.addResultReceiver(object : ResultReceiver<String> {
+            override fun validationSucceeded() {
+                assertTrue(true)
+            }
 
-                    override fun validationFailed(errorReasons: MutableList<String>?) {
-                        assertTrue(false)
-                    }
-                })
+            override fun validationFailed(errorReasons: MutableList<String>?) {
+                assertTrue(false)
+            }
+        })
         et.setText("ab")
     }
 
@@ -40,17 +36,15 @@ class KeninKotlinAndroidTest {
     fun testConfirm() {
         val expect = EditText(getContext())
         val confirm = EditText(getContext())
-        confirm.
-                kenin { confirm(expect, "must be same with another text") }.
-                addResultReceiver(object : ResultReceiver<String> {
-                    override fun validationSucceeded() {
-                        assertTrue(true)
-                    }
+        confirm.kenin { confirm(expect, "must be same with another text") }.addResultReceiver(object : ResultReceiver<String> {
+            override fun validationSucceeded() {
+                assertTrue(true)
+            }
 
-                    override fun validationFailed(errorReasons: MutableList<String>?) {
-                        assertTrue(false)
-                    }
-                })
+            override fun validationFailed(errorReasons: MutableList<String>?) {
+                assertTrue(false)
+            }
+        })
         expect.setText("foobar")
         confirm.setText("foobar")
     }

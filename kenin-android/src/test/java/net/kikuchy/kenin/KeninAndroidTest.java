@@ -1,25 +1,26 @@
 package net.kikuchy.kenin;
 
 import android.content.Context;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.kikuchy.kenin.condition.Conditions;
 import net.kikuchy.kenin.result.ResultReceiver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
 public class KeninAndroidTest {
     Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
+        return InstrumentationRegistry.getInstrumentation().getContext();
     }
 
     @Test

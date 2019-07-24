@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -26,7 +31,7 @@ dependencies {
     api project(path: ':kenin-java')
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'com.github.gfx.android.robolectricinstrumentation:robolectric-instrumentation:3.0.8'
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
 
 publish {
