@@ -62,7 +62,3 @@ publish {
     desc = 'realtime text validator framework for kotlin and android'
     website = 'https://github.com/kikuchy/kenin'
 }
-
-afterEvaluate {
-//    tasks.findByPath(":kenin-kotlin-android:mavenAndroidJavadocs").enabled = false
-}
