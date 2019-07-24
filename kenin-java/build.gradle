@@ -15,6 +15,10 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
 }
 
+javadoc {
+    options.addBooleanOption('html5', true)
+}
+
 publish {
     userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin'
