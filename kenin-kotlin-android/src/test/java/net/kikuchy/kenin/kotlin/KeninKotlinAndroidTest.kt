@@ -1,8 +1,8 @@
 package net.kikuchy.kenin.kotlin
 
 import android.content.Context
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import android.widget.EditText
 import net.kikuchy.kenin.kotlin.and
 import net.kikuchy.kenin.kotlin.kenin

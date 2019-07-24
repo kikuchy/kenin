@@ -1,9 +1,9 @@
 package net.kikuchy.kenin.sample
 
 import android.os.Bundle
-import android.support.design.widget.TextInputLayout
-import android.support.v7.app.AppCompatActivity
 import android.widget.CheckBox
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
 import net.kikuchy.kenin.kotlin.and
 import net.kikuchy.kenin.kotlin.kenin
 import net.kikuchy.kenin.kotlin.or

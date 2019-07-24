@@ -10,11 +10,12 @@ targetCompatibility = JavaVersion.VERSION_1_7
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 }
 
 publish {
+    userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin'
     artifactId = 'kenin-java'
     publishVersion = '0.0.4'
