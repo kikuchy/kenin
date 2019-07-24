@@ -58,7 +58,7 @@ publish {
     userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin.kotlin'
     artifactId = 'kenin-kotlin-android'
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
     desc = 'realtime text validator framework for kotlin and android'
     website = 'https://github.com/kikuchy/kenin'
 }

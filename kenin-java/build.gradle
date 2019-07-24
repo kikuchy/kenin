@@ -19,7 +19,7 @@ publish {
     userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin'
     artifactId = 'kenin-java'
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
     desc = 'realtime text validator framework for java and android'
     website = 'https://github.com/kikuchy/kenin'
 }
