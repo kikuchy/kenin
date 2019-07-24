@@ -1,6 +1,6 @@
 package net.kikuchy.kenin.kotlin
 
-import android.support.design.widget.TextInputLayout
+import com.google.android.material.textfield.TextInputLayout
 import android.widget.CheckBox
 import android.widget.EditText
 import net.kikuchy.kenin.KeninAndroid

@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -21,20 +21,27 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile project(path: ':kenin-android')
-    compile project(path: ':kenin-kotlin')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api project(path: ':kenin-java')
+    api project(path: ':kenin-android')
+    api project(path: ':kenin-kotlin')
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.github.gfx.android.robolectricinstrumentation:robolectric-instrumentation:3.0.8'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
 buildscript {
-    ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.3.41'
     repositories {
         mavenCentral()
     }
@@ -43,17 +50,15 @@ buildscript {
     }
 }
 repositories {
+    google()
     mavenCentral()
 }
 
 publish {
+    userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin.kotlin'
     artifactId = 'kenin-kotlin-android'
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
     desc = 'realtime text validator framework for kotlin and android'
     website = 'https://github.com/kikuchy/kenin'
-}
-
-afterEvaluate {
-    tasks.findByPath(":kenin-kotlin-android:mavenAndroidJavadocs").enabled = false
 }

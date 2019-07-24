@@ -13,9 +13,9 @@ Realtime validation framework for Java and Android.
 
 ```groovy
 dependencies {
-    compile 'net.kikuchy.kenin:kenin-android:0.0.4' // for android
-    compile 'net.kikuchy.kenin.kotlin:kenin-kotlin-android:0.0.4' // for android with Kotlin
-    // compile 'net.kikuchy.kenin:kenin-java:0.0.4' // pure java
+    compile 'net.kikuchy.kenin:kenin-android:0.0.5' // for android
+    compile 'net.kikuchy.kenin.kotlin:kenin-kotlin-android:0.0.5' // for android with Kotlin
+    // compile 'net.kikuchy.kenin:kenin-java:0.0.5' // pure java
 }
 ```
 
@@ -139,6 +139,8 @@ KeninAndroid.
 
 # Change Log
 
+* 0.0.5
+    * Support AndroidX
 * 0.0.4
 	* Support Kotlin DSL
 	* Expands type boundary

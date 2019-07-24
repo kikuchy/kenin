@@ -2,8 +2,8 @@ package net.kikuchy.kenin.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mUserId = (TextInputLayout) findViewById(R.id.user_id);
-        mPassword = (TextInputLayout) findViewById(R.id.password);
-        mPassConf = (TextInputLayout) findViewById(R.id.password_confirm);
-        mAmount = (TextInputLayout) findViewById(R.id.amount);
-        mAgreement = (CheckBox) findViewById(R.id.agreement);
+        mUserId = findViewById(R.id.user_id);
+        mPassword = findViewById(R.id.password);
+        mPassConf = findViewById(R.id.password_confirm);
+        mAmount = findViewById(R.id.amount);
+        mAgreement = findViewById(R.id.agreement);
 
         KeninAndroid.create(
                 mUserId,

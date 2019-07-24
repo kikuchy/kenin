@@ -10,14 +10,20 @@ targetCompatibility = JavaVersion.VERSION_1_7
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
 }
 
 publish {
+    userOrg = 'kikuchy'
     groupId = 'net.kikuchy.kenin'
     artifactId = 'kenin-java'
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
     desc = 'realtime text validator framework for java and android'
     website = 'https://github.com/kikuchy/kenin'
 }
