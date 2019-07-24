@@ -3,6 +3,8 @@ package net.kikuchy.kenin.condition;
 import net.kikuchy.kenin.internal.AlwaysValidCondition;
 import net.kikuchy.kenin.result.ValidationResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,16 +34,19 @@ public abstract class CompositeCondition<V, E> implements Condition<V, E> {
         return new ValidationResult<>(isValid, errors);
     }
 
+    @NotNull
     public static <V, E> Condition<V, E> and() {
         return new AlwaysValidCondition<>();
     }
 
     @SafeVarargs
+    @NotNull
     public static <V, E> Condition<V, E> and(Condition<V, E>... conditions) {
         return and(0, conditions);
     }
 
     @SafeVarargs
+    @NotNull
     private static <V, E> Condition<V, E> and(int offset, Condition<V, E>... conditions) {
         if (conditions.length - offset < 1) {
             throw new IllegalArgumentException("This method must receive least of one arguments.");
@@ -57,16 +62,19 @@ public abstract class CompositeCondition<V, E> implements Condition<V, E> {
         }
     }
 
+    @NotNull
     public static <V, E> Condition<V, E> or() {
         return new AlwaysValidCondition<>();
     }
 
     @SafeVarargs
+    @NotNull
     public static <V, E> Condition<V, E> or(Condition<V, E>... conditions) {
         return or(0, conditions);
     }
 
     @SafeVarargs
+    @NotNull
     private static <V, E> Condition<V, E> or(int offset, Condition<V, E>... conditions) {
         if (conditions.length - offset < 1) {
             throw new IllegalArgumentException("This method must receive least of one arguments.");

@@ -14,6 +14,8 @@ import net.kikuchy.kenin.result.ResultReceiver;
 import net.kikuchy.kenin.trigger.ValueChangedEventEmitter;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
     }
 
 
+    @NotNull
     public static <E> Kenin<CharSequence, E> create(
             final EditText editText, final Condition<? super CharSequence, E> condition) {
         return new KeninAndroid<>(new ValueChangedEventRelay<CharSequence>() {
@@ -50,6 +53,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
         }, condition);
     }
 
+    @NotNull
     public static <E> Kenin<CharSequence, E> create(
             final TextInputLayout textInputLayout,
             final Condition<? super CharSequence, E> condition,
@@ -79,6 +83,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
         return kenin;
     }
 
+    @NotNull
     public static Kenin<CharSequence, String> create(
             final TextInputLayout textInputLayout,
             final Condition<? super CharSequence, String> condition) {
@@ -91,6 +96,7 @@ public class KeninAndroid<V, E> extends Kenin<V, E> {
                 });
     }
 
+    @NotNull
     public static <E> Kenin<Boolean, E> create(
             final CheckBox checkBox, final Condition<? super Boolean, E> condition) {
         return new KeninAndroid<>(new ValueChangedEventRelay<Boolean>() {

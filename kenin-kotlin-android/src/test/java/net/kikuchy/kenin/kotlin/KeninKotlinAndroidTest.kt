@@ -11,7 +11,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class KeninKotlinAndroidTest {
-    internal fun getContext(): Context {
+    private fun getContext(): Context {
         return InstrumentationRegistry.getInstrumentation().context
     }
 

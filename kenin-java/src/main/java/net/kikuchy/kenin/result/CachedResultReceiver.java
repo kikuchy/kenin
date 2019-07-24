@@ -16,7 +16,7 @@ public class CachedResultReceiver<E> implements ResultReceiver<E> {
 
     @Override
     public void validationSucceeded() {
-        if (isLastValidationSucceeded != true) {
+        if (!isLastValidationSucceeded) {
             isLastValidationSucceeded = true;
             trueReceiver.validationSucceeded();
         }
@@ -24,7 +24,7 @@ public class CachedResultReceiver<E> implements ResultReceiver<E> {
 
     @Override
     public void validationFailed(List<E> errorReasons) {
-        if (isLastValidationSucceeded != false ||
+        if (isLastValidationSucceeded ||
                 !errorReasons.equals(lastErrorMessages)) {
             isLastValidationSucceeded = false;
             lastErrorMessages = errorReasons;

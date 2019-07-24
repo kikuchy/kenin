@@ -12,6 +12,7 @@ targetCompatibility = JavaVersion.VERSION_1_7
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
 
 publish {

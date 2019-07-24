@@ -16,15 +16,16 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @RunWith(RobolectricTestRunner.class)
 public class KeninAndroidTest {
-    Context getContext() {
+    private Context getContext() {
         return InstrumentationRegistry.getInstrumentation().getContext();
     }
 
     @Test
-    public void editTextValidationFailed() throws Exception {
+    public void editTextValidationFailed() {
         EditText et = new EditText(getContext());
         et.setText("a");
         KeninAndroid.create(et, Conditions.requireField()).addResultReceiver(new ResultReceiver<String>() {
@@ -42,7 +43,7 @@ public class KeninAndroidTest {
     }
 
     @Test
-    public void editTextValidationSucceeded() throws Exception {
+    public void editTextValidationSucceeded() {
         EditText et = new EditText(getContext());
         et.setText("");
         KeninAndroid.create(et, Conditions.requireField()).addResultReceiver(new ResultReceiver<String>() {
@@ -53,14 +54,14 @@ public class KeninAndroidTest {
 
             @Override
             public void validationFailed(List<String> list) {
-                assertTrue(false);
+                fail();
             }
         });
         et.setText("a");
     }
 
     @Test
-    public void checkBox() throws Exception {
+    public void checkBox() {
         CheckBox cb = new CheckBox(getContext());
         KeninAndroid.create(cb, Conditions.requireChecked())
                 .addResultReceiver(new ResultReceiver<String>() {
@@ -71,7 +72,7 @@ public class KeninAndroidTest {
 
                     @Override
                     public void validationFailed(List<String> list) {
-                        assertTrue(false);
+                        fail();
                     }
                 });
         cb.setChecked(true);

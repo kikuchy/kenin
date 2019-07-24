@@ -15,11 +15,11 @@ class KotlinMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin_main)
 
-        val userId = findViewById(R.id.user_id) as TextInputLayout
-        val password = findViewById(R.id.password) as TextInputLayout
-        val passConf = findViewById(R.id.password_confirm) as TextInputLayout
-        val amount = findViewById(R.id.amount) as TextInputLayout
-        val agreement = findViewById(R.id.agreement) as CheckBox
+        val userId = findViewById<TextInputLayout>(R.id.user_id)
+        val password = findViewById<TextInputLayout>(R.id.password)
+        val passConf = findViewById<TextInputLayout>(R.id.password_confirm)
+        val amount = findViewById<TextInputLayout>(R.id.amount)
+        val agreement = findViewById<CheckBox>(R.id.agreement)
 
         userId.kenin {
             requireField("require!!!! must put some value!!") and (alphabet() or numeric())
@@ -37,11 +37,11 @@ class KotlinMainActivity : AppCompatActivity() {
                 kenin { requireChecked("You have to AGREEEEE") }.
                 addResultReceiver(object : ResultReceiver<String> {
                     override fun validationSucceeded() {
-                        agreement.setError(null)
+                        agreement.error = null
                     }
 
                     override fun validationFailed(errorReasons: MutableList<String>?) {
-                        agreement.setError(errorReasons?.get(0))
+                        agreement.error = errorReasons?.get(0)
                     }
                 })
     }

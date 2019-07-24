@@ -6,6 +6,8 @@ import net.kikuchy.kenin.result.ValidationResult;
 import net.kikuchy.kenin.trigger.ValueChangedEventEmitter;
 import net.kikuchy.kenin.trigger.ValueChangedEventRelay;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +45,7 @@ public class Kenin<V, E> {
         resultReceivers.remove(resultReceiver);
     }
 
+    @NotNull
     public static <V, E> Kenin<V, E> create(ValueChangedEventRelay<V> relay, Condition<? super V, E> condition) {
         return new Kenin<>(relay, condition);
     }
